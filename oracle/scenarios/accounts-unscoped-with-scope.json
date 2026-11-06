@@ -1,0 +1,54 @@
+{
+  "area": "accounts",
+  "description": "Asking for an unscoped account with a scope raises UnknownAccount.",
+  "effects": {
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "unscoped",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "USD",
+        "identifier": "scoped",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      }
+    ]
+  },
+  "id": "accounts-unscoped-with-scope",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "identifier": "unscoped",
+        "op": "define_account"
+      },
+      {
+        "identifier": "scoped",
+        "op": "define_account",
+        "scope": "user_id"
+      },
+      {
+        "identifier": "unscoped",
+        "op": "account",
+        "scope": {
+          "user": 1
+        }
+      }
+    ]
+  },
+  "outcome": {
+    "error": {
+      "class": "DoubleEntry::UnknownAccount",
+      "message": "account: unscoped scoped?: true"
+    }
+  },
+  "source": [
+    "spec/double_entry_spec.rb:66",
+    "spec/double_entry/account_spec.rb:89"
+  ]
+}

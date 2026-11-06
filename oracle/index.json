@@ -1,0 +1,694 @@
+{
+  "scenarios": [
+    {
+      "area": "account-balances",
+      "description": "A transfer between two scopes of an account moves the balance from one scope to the other.",
+      "id": "account-balances-between-scopes",
+      "outcome": "returns"
+    },
+    {
+      "area": "account-balances",
+      "description": "A balance record's balance is in its account's currency.",
+      "id": "account-balances-currency",
+      "outcome": "returns"
+    },
+    {
+      "area": "account-balances",
+      "description": "A scope whose balance is below the minimum is not found.",
+      "id": "account-balances-min-balance-above",
+      "outcome": "returns"
+    },
+    {
+      "area": "account-balances",
+      "description": "A scope whose balance is above the minimum is found.",
+      "id": "account-balances-min-balance-below",
+      "outcome": "returns"
+    },
+    {
+      "area": "account-balances",
+      "description": "A scope whose balance equals the minimum is found.",
+      "id": "account-balances-min-balance-equal",
+      "outcome": "returns"
+    },
+    {
+      "area": "account-balances",
+      "description": "Each account's balance record holds the same balance as the account.",
+      "id": "account-balances-records-match",
+      "outcome": "returns"
+    },
+    {
+      "area": "account-balances",
+      "description": "A transfer between two accounts of one scope moves the balance between them.",
+      "id": "account-balances-same-owner-other-account",
+      "outcome": "returns"
+    },
+    {
+      "area": "account-balances",
+      "description": "Each scope of an account has a balance and a balance record of its own.",
+      "id": "account-balances-scoped-separately",
+      "outcome": "returns"
+    },
+    {
+      "area": "account-fixer",
+      "description": "With a fixer, a check that finds a wrong balance record sets it to the recalculated balance.",
+      "id": "account-fixer-balance-error",
+      "outcome": "returns"
+    },
+    {
+      "area": "account-fixer",
+      "description": "With a fixer, a check that finds a wrong line balance recalculates the account's running balances and its balance record.",
+      "id": "account-fixer-line-error",
+      "outcome": "returns"
+    },
+    {
+      "area": "account-fixer",
+      "description": "With a fixer, a wrong line balance in another currency is recalculated in that currency.",
+      "id": "account-fixer-other-currency-line-error",
+      "outcome": "returns"
+    },
+    {
+      "area": "accounts",
+      "description": "A blank scope or scope identity counts as none: it finds the unscoped account, and a scoped account asked for with a blank scope raises UnknownAccount.",
+      "id": "accounts-blank-scope-is-unscoped",
+      "outcome": "raises"
+    },
+    {
+      "area": "accounts",
+      "description": "Account.currency gives the currency of the account defined with an identifier, scoped or not: USD, the default, for one defined without a currency, BHD for one defined with it; an identifier no account has gives nil.",
+      "id": "accounts-currency-by-identifier",
+      "outcome": "returns"
+    },
+    {
+      "area": "accounts",
+      "description": "An account defined without a currency has Money.default_currency, USD.",
+      "id": "accounts-default-currency",
+      "outcome": "returns"
+    },
+    {
+      "area": "accounts",
+      "description": "Defining the same identifier twice raises DuplicateAccount.",
+      "id": "accounts-define-duplicate",
+      "outcome": "raises"
+    },
+    {
+      "area": "accounts",
+      "description": "Two instances of an account with the same scope are equal and hash alike; with different scopes they are neither.",
+      "id": "accounts-equality-and-hash",
+      "outcome": "returns"
+    },
+    {
+      "area": "accounts",
+      "description": "An account defined with currency AUD has AUD.",
+      "id": "accounts-explicit-currency",
+      "outcome": "returns"
+    },
+    {
+      "area": "accounts",
+      "description": "A scoped account is found with a scope, whose id is its scope identity as a string, or with a scope identity given as is.",
+      "id": "accounts-find-scoped",
+      "outcome": "returns"
+    },
+    {
+      "area": "accounts",
+      "description": "An unscoped account is found by its identifier alone; it has no scope identity.",
+      "id": "accounts-find-unscoped",
+      "outcome": "returns"
+    },
+    {
+      "area": "accounts",
+      "description": "With account_identifier_max_length 31, an identifier of 31 characters is accepted.",
+      "id": "accounts-identifier-at-max-length",
+      "outcome": "returns"
+    },
+    {
+      "area": "accounts",
+      "description": "With account_identifier_max_length 31, an identifier of 32 characters raises AccountIdentifierTooLongError.",
+      "id": "accounts-identifier-over-max-length",
+      "outcome": "raises"
+    },
+    {
+      "area": "accounts",
+      "description": "With scope_identifier_max_length 23, a scope identity of 23 characters is accepted.",
+      "id": "accounts-scope-at-max-length",
+      "outcome": "returns"
+    },
+    {
+      "area": "accounts",
+      "description": "A scope_identifier that raises makes DoubleEntry.account raise the same error.",
+      "id": "accounts-scope-identifier-raises",
+      "outcome": "raises"
+    },
+    {
+      "area": "accounts",
+      "description": "With scope_identifier_max_length 23, a scope identity of 24 characters raises ScopeIdentifierTooLongError.",
+      "id": "accounts-scope-over-max-length",
+      "outcome": "raises"
+    },
+    {
+      "area": "accounts",
+      "description": "Asking for a scoped account without a scope raises UnknownAccount.",
+      "id": "accounts-scoped-without-scope",
+      "outcome": "raises"
+    },
+    {
+      "area": "accounts",
+      "description": "Account instances sort by scope identity, then identifier, both as strings; an unscoped account sorts as an empty scope identity.",
+      "id": "accounts-sort-order",
+      "outcome": "returns"
+    },
+    {
+      "area": "accounts",
+      "description": "to_s writes the identifier, the scope as given and the currency.",
+      "id": "accounts-to-string",
+      "outcome": "returns"
+    },
+    {
+      "area": "accounts",
+      "description": "An identifier that was not defined raises UnknownAccount.",
+      "id": "accounts-unknown-identifier",
+      "outcome": "raises"
+    },
+    {
+      "area": "accounts",
+      "description": "Asking for an unscoped account with a scope raises UnknownAccount.",
+      "id": "accounts-unscoped-with-scope",
+      "outcome": "raises"
+    },
+    {
+      "area": "balances",
+      "description": "A transfer takes its amount from the origin's balance and adds it to the destination's.",
+      "id": "balances-after-transfer",
+      "outcome": "returns"
+    },
+    {
+      "area": "balances",
+      "description": "A balance at a time is the running balance of the last line created at or before it.",
+      "id": "balances-at",
+      "outcome": "returns"
+    },
+    {
+      "area": "balances",
+      "description": "With at beside from and to, the balance is the running balance at that time: the range is ignored and nothing is summed.",
+      "id": "balances-at-ignores-range",
+      "outcome": "returns"
+    },
+    {
+      "area": "balances",
+      "description": "A balance at a time with microseconds counts a line created at or before it, to the microsecond (U-15).",
+      "id": "balances-at-microseconds",
+      "outcome": "returns"
+    },
+    {
+      "area": "balances",
+      "description": "With at beside a code or codes, the balance is the sum of the amounts of the lines created at or before at with any of those codes, not a running balance.",
+      "id": "balances-at-with-codes",
+      "outcome": "returns"
+    },
+    {
+      "area": "balances",
+      "description": "A balance between two times is the sum of the amounts of the lines created between them, both ends included.",
+      "id": "balances-between",
+      "outcome": "returns"
+    },
+    {
+      "area": "balances",
+      "description": "A balance between now and a time in the future sums the lines written in the future.",
+      "id": "balances-between-future",
+      "outcome": "returns"
+    },
+    {
+      "area": "balances",
+      "description": "A balance between times with microseconds sums the lines created between them, both ends included, to the microsecond (U-15).",
+      "id": "balances-between-microseconds",
+      "outcome": "returns"
+    },
+    {
+      "area": "balances",
+      "description": "DoubleEntry.balance with an identifier and a scope gives the balance of that account instance.",
+      "id": "balances-by-identifier-and-scope",
+      "outcome": "returns"
+    },
+    {
+      "area": "balances",
+      "description": "A balance by code is the sum of the amounts of the account's lines with that code.",
+      "id": "balances-code",
+      "outcome": "returns"
+    },
+    {
+      "area": "balances",
+      "description": "A balance by codes sums the lines with any of them; a code given beside codes is one more of them.",
+      "id": "balances-codes",
+      "outcome": "returns"
+    },
+    {
+      "area": "balances",
+      "description": "With from but no to, or to but no from, there is no range: the balance is the running balance of the account's last line, nothing summed.",
+      "id": "balances-from-or-to-alone",
+      "outcome": "returns"
+    },
+    {
+      "area": "balances",
+      "description": "Without options a balance is the running balance of the account's last line, even one written in the future, in the account's currency.",
+      "id": "balances-initial",
+      "outcome": "returns"
+    },
+    {
+      "area": "balances",
+      "description": "Each line of an account holds the account's running balance after it.",
+      "id": "balances-running-per-line",
+      "outcome": "returns"
+    },
+    {
+      "area": "balances",
+      "description": "DoubleEntry.balance with a scope its account's scope_identifier rejects raises the scope_identifier's error.",
+      "id": "balances-scope-identifier-raises",
+      "outcome": "raises"
+    },
+    {
+      "area": "balances",
+      "description": "DoubleEntry.balance of a scoped account without a scope raises UnknownAccount.",
+      "id": "balances-scoped-without-scope",
+      "outcome": "raises"
+    },
+    {
+      "area": "configuration",
+      "description": "Unconfigured, the three max lengths are nil, json_metadata is false and running_inside_transactional_fixtures is false.",
+      "id": "configuration-defaults",
+      "outcome": "returns"
+    },
+    {
+      "area": "configuration",
+      "description": "A max length that has been set is read back as set: code 10, scope identifier 11, account identifier 9.",
+      "id": "configuration-max-lengths-set",
+      "outcome": "returns"
+    },
+    {
+      "area": "line-check",
+      "description": "A balance record that differs from the running balance is an error on the account; without a fixer the record stays wrong.",
+      "id": "line-check-balance-error",
+      "outcome": "returns"
+    },
+    {
+      "area": "line-check",
+      "description": "A check of consistent lines persists a LineCheck without errors, up to the last line, with an empty log.",
+      "id": "line-check-consistent",
+      "outcome": "returns"
+    },
+    {
+      "area": "line-check",
+      "description": "last_line_id_checked is the last_line_id of the newest check by created_at, not the last one created.",
+      "id": "line-check-last-line-id",
+      "outcome": "returns"
+    },
+    {
+      "area": "line-check",
+      "description": "A line whose balance is not the previous balance plus its amount is an error on the line and on its account; without a fixer the balance stays wrong.",
+      "id": "line-check-line-error",
+      "outcome": "returns"
+    },
+    {
+      "area": "line-check",
+      "description": "A check with no lines since the last check returns nothing and persists no LineCheck.",
+      "id": "line-check-nothing-new",
+      "outcome": "returns"
+    },
+    {
+      "area": "line-check",
+      "description": "A check of consistent lines in another currency than the default finds no errors.",
+      "id": "line-check-other-currency",
+      "outcome": "returns"
+    },
+    {
+      "area": "line-check",
+      "description": "A wrong line balance in another currency is an error on the line and on its account, logged in that currency; without a fixer the balance stays wrong.",
+      "id": "line-check-other-currency-line-error",
+      "outcome": "returns"
+    },
+    {
+      "area": "lines",
+      "description": "A line's account and partner account are account instances, with the scope identities the line was saved with.",
+      "id": "lines-account-instances",
+      "outcome": "returns"
+    },
+    {
+      "area": "lines",
+      "description": "A line has its amount as Money and its code as given; a line saved without a detail keeps its code after a reload.",
+      "id": "lines-amount-and-code",
+      "outcome": "returns"
+    },
+    {
+      "area": "lines",
+      "description": "Line.credits lists the lines with a positive amount and Line.debits those with a negative one, the other way round from the transfer's names (U-07).",
+      "id": "lines-credits-debits",
+      "outcome": "returns"
+    },
+    {
+      "area": "lines",
+      "description": "A line takes its currency from its account.",
+      "id": "lines-currency",
+      "outcome": "returns"
+    },
+    {
+      "area": "lines",
+      "description": "The credit is a decrease and the debit an increase.",
+      "id": "lines-increase-decrease",
+      "outcome": "returns"
+    },
+    {
+      "area": "lines",
+      "description": "Saving a positive balance on a negative-only account raises AccountWouldBeSentPositiveError.",
+      "id": "lines-negative-only-violation",
+      "outcome": "raises"
+    },
+    {
+      "area": "lines",
+      "description": "A line without a code is rejected by the NOT NULL constraint of the code column.",
+      "id": "lines-null-code-rejected",
+      "outcome": "raises"
+    },
+    {
+      "area": "lines",
+      "description": "The credit and the debit are each other's partner, and the pair puts the credit first.",
+      "id": "lines-partner-and-pair",
+      "outcome": "returns"
+    },
+    {
+      "area": "lines",
+      "description": "Saving a negative balance on a positive-only account raises AccountWouldBeSentNegative.",
+      "id": "lines-positive-only-violation",
+      "outcome": "raises"
+    },
+    {
+      "area": "lines",
+      "description": "Assigning an unscoped account sets the account column and leaves the scope null, for the partner account too.",
+      "id": "lines-scope-columns",
+      "outcome": "returns"
+    },
+    {
+      "area": "locking",
+      "description": "A balance record created by a lock takes its balance from the last line of the account.",
+      "id": "locking-balance-from-lines",
+      "outcome": "returns"
+    },
+    {
+      "area": "locking",
+      "description": "Locking an account without a balance record creates one, with a zero balance.",
+      "id": "locking-creates-missing-balance",
+      "outcome": "returns"
+    },
+    {
+      "area": "locking-extensions",
+      "description": "A mysql deadlock inside with_restart_on_deadlock publishes deadlock_restart and restarts the transaction, so the lock goes through.",
+      "id": "locking-extensions-deadlock-restart-mysql",
+      "outcome": "returns"
+    },
+    {
+      "area": "locking-extensions",
+      "description": "A postgres deadlock inside with_restart_on_deadlock publishes deadlock_restart and restarts the transaction, so the lock goes through.",
+      "id": "locking-extensions-deadlock-restart-postgres",
+      "outcome": "returns"
+    },
+    {
+      "area": "locking-extensions",
+      "description": "A sqlite deadlock inside with_restart_on_deadlock publishes deadlock_restart and restarts the transaction, so the lock goes through.",
+      "id": "locking-extensions-deadlock-restart-sqlite",
+      "outcome": "returns"
+    },
+    {
+      "area": "locking-extensions",
+      "description": "create_ignoring_duplicates! retries the create on a mysql deadlock, publishing deadlock_retry on each retry.",
+      "id": "locking-extensions-deadlock-retry-mysql",
+      "outcome": "returns"
+    },
+    {
+      "area": "locking-extensions",
+      "description": "create_ignoring_duplicates! retries the create on a postgres deadlock, publishing deadlock_retry on each retry.",
+      "id": "locking-extensions-deadlock-retry-postgres",
+      "outcome": "returns"
+    },
+    {
+      "area": "locking-extensions",
+      "description": "create_ignoring_duplicates! retries the create on a sqlite deadlock, publishing deadlock_retry on each retry.",
+      "id": "locking-extensions-deadlock-retry-sqlite",
+      "outcome": "returns"
+    },
+    {
+      "area": "locking-extensions",
+      "description": "create_ignoring_duplicates! ignores the RecordNotUnique of a duplicate username and publishes duplicate_ignore.",
+      "id": "locking-extensions-ignore-duplicate",
+      "outcome": "returns"
+    },
+    {
+      "area": "locking-extensions",
+      "description": "create_ignoring_duplicates! re-raises a StatementInvalid that is neither a duplicate nor a deadlock, and publishes nothing.",
+      "id": "locking-extensions-other-error-reraised",
+      "outcome": "raises"
+    },
+    {
+      "area": "locking-extensions",
+      "description": "restartable_transaction runs its block again while it raises RestartTransaction.",
+      "id": "locking-extensions-restartable-transaction",
+      "outcome": "returns"
+    },
+    {
+      "area": "locking",
+      "description": "Locking inside a regular transaction raises LockMustBeOutermostTransaction.",
+      "id": "locking-inside-transaction",
+      "outcome": "raises"
+    },
+    {
+      "area": "locking",
+      "description": "A scoped and an unscoped account are locked together; both get a balance record.",
+      "id": "locking-scoped-and-unscoped",
+      "outcome": "returns"
+    },
+    {
+      "area": "metadata-json",
+      "description": "With json_metadata, a key with an array of values stores the array in both lines' metadata column and creates no line_metadata rows.",
+      "id": "metadata-json-array-values",
+      "outcome": "returns"
+    },
+    {
+      "area": "metadata-json",
+      "description": "With json_metadata, a transfer without metadata creates no line_metadata rows and leaves the lines' metadata column empty.",
+      "id": "metadata-json-none",
+      "outcome": "returns"
+    },
+    {
+      "area": "metadata-json",
+      "description": "With json_metadata, a transfer with two key/value pairs stores them in both lines' metadata column and creates no line_metadata rows.",
+      "id": "metadata-json-pairs",
+      "outcome": "returns"
+    },
+    {
+      "area": "metadata-table",
+      "description": "Without json_metadata, a key with an array of values creates one line_metadata row per value and line, and leaves the lines' metadata column empty.",
+      "id": "metadata-table-array-values",
+      "outcome": "returns"
+    },
+    {
+      "area": "metadata-table",
+      "description": "On the generator's tables without json_metadata, the metadata goes to line_metadata, and a line has no metadata reader: Line#metadata raises NoMethodError.",
+      "id": "metadata-table-generator-schema",
+      "outcome": "raises"
+    },
+    {
+      "area": "metadata-table",
+      "description": "Without json_metadata, a transfer without metadata creates no line_metadata rows and leaves the lines' metadata column empty.",
+      "id": "metadata-table-none",
+      "outcome": "returns"
+    },
+    {
+      "area": "metadata-table",
+      "description": "Without json_metadata, a transfer with two key/value pairs creates one line_metadata row per pair and line, and leaves the lines' metadata column empty.",
+      "id": "metadata-table-pairs",
+      "outcome": "returns"
+    },
+    {
+      "area": "nested-locking",
+      "description": "A StatementInvalid matching /lock wait timeout/ while locking raises LockWaitTimeout.",
+      "id": "nested-locking-lock-wait-timeout",
+      "outcome": "raises"
+    },
+    {
+      "area": "nested-locking",
+      "description": "A nested lock of accounts the outer lock holds goes through.",
+      "id": "nested-locking-nested-covered",
+      "outcome": "returns"
+    },
+    {
+      "area": "nested-locking",
+      "description": "A nested lock of an account the outer lock does not hold raises LockNotHeld.",
+      "id": "nested-locking-nested-not-covered",
+      "outcome": "raises"
+    },
+    {
+      "area": "nested-locking",
+      "description": "Any other StatementInvalid while locking is re-raised as it is.",
+      "id": "nested-locking-other-statement-error",
+      "outcome": "raises"
+    },
+    {
+      "area": "nested-locking",
+      "description": "A transfer rolled back by ActiveRecord::Rollback inside a lock leaves both balances at zero.",
+      "id": "nested-locking-rollback",
+      "outcome": "returns"
+    },
+    {
+      "area": "nested-locking",
+      "description": "An exception after a transfer inside a lock propagates, and the transfer is rolled back.",
+      "id": "nested-locking-rollback-on-exception",
+      "outcome": "raises"
+    },
+    {
+      "area": "nested-locking",
+      "description": "With running_inside_transactional_fixtures, a lock inside a regular transaction goes through.",
+      "id": "nested-locking-transactional-fixtures",
+      "outcome": "returns"
+    },
+    {
+      "area": "nested-locking",
+      "description": "A transfer inside a lock of both its accounts goes through.",
+      "id": "nested-locking-transfer-inside-lock",
+      "outcome": "returns"
+    },
+    {
+      "area": "nested-locking",
+      "description": "A transfer inside a lock that does not hold its destination raises LockNotHeld.",
+      "id": "nested-locking-transfer-lock-not-held",
+      "outcome": "raises"
+    },
+    {
+      "area": "schema",
+      "description": "With json_metadata the migration adds a json metadata column to the lines and creates no line_metadata table.",
+      "id": "schema-json-metadata",
+      "outcome": "returns"
+    },
+    {
+      "area": "schema",
+      "description": "Without json_metadata the migration creates the line_metadata table and the lines have no metadata column.",
+      "id": "schema-metadata-table",
+      "outcome": "returns"
+    },
+    {
+      "area": "transfer-rules",
+      "description": "With code_max_length 47, a code of 47 characters is accepted.",
+      "id": "transfer-rules-code-at-max-length",
+      "outcome": "returns"
+    },
+    {
+      "area": "transfer-rules",
+      "description": "With code_max_length 47, a code of 48 characters raises TransferCodeTooLongError.",
+      "id": "transfer-rules-code-over-max-length",
+      "outcome": "raises"
+    },
+    {
+      "area": "transfer-rules",
+      "description": "Defining the same from, to and code twice raises DuplicateTransfer.",
+      "id": "transfer-rules-define-duplicate",
+      "outcome": "raises"
+    },
+    {
+      "area": "transfer-rules",
+      "description": "Two rules between the same accounts with different codes are both found, by find and by find!.",
+      "id": "transfer-rules-find",
+      "outcome": "returns"
+    },
+    {
+      "area": "transfer-rules",
+      "description": "find! raises TransferNotAllowed for a rule that was not defined (the reverse direction).",
+      "id": "transfer-rules-find-bang-undefined",
+      "outcome": "raises"
+    },
+    {
+      "area": "transfer-rules",
+      "description": "find returns nothing for a rule that was not defined (the reverse direction).",
+      "id": "transfer-rules-find-undefined",
+      "outcome": "returns"
+    },
+    {
+      "area": "transfers",
+      "description": "An allowed transfer writes a credit and a debit line and the two account balances.",
+      "id": "transfers-allowed",
+      "outcome": "returns"
+    },
+    {
+      "area": "transfers",
+      "description": "A transfer from an account defaulting to USD to one given currency 'USD' (U-05).",
+      "id": "transfers-default-currency-to-explicit",
+      "outcome": "returns"
+    },
+    {
+      "area": "transfers",
+      "description": "A transfer from an account given currency 'USD' to one defaulting to USD (U-05).",
+      "id": "transfers-explicit-currency-to-default",
+      "outcome": "returns"
+    },
+    {
+      "area": "transfers",
+      "description": "A transfer from an account to itself, with the same scope, raises TransferNotAllowed even when a rule allows it.",
+      "id": "transfers-identical-account",
+      "outcome": "raises"
+    },
+    {
+      "area": "transfers",
+      "description": "A transfer inside a regular transaction raises LockMustBeOutermostTransaction and writes nothing.",
+      "id": "transfers-inside-transaction",
+      "outcome": "raises"
+    },
+    {
+      "area": "transfers",
+      "description": "An allowed transfer between accounts of different currencies raises MismatchedCurrencies.",
+      "id": "transfers-mismatched-currencies",
+      "outcome": "raises"
+    },
+    {
+      "area": "transfers",
+      "description": "A negative amount raises TransferIsNegative before the rule is looked up.",
+      "id": "transfers-negative-amount",
+      "outcome": "raises"
+    },
+    {
+      "area": "transfers",
+      "description": "A transfer creates two lines and returns the credit, the negative amount, then the debit, the positive amount.",
+      "id": "transfers-returns-credit-and-debit",
+      "outcome": "returns"
+    },
+    {
+      "area": "transfers",
+      "description": "A transfer between two scopes of the same account is allowed.",
+      "id": "transfers-same-identifier-other-scope",
+      "outcome": "returns"
+    },
+    {
+      "area": "transfers",
+      "description": "A transfer with a detail writes its type and id on both lines.",
+      "id": "transfers-with-detail",
+      "outcome": "returns"
+    },
+    {
+      "area": "transfers",
+      "description": "A transfer without a code between accounts no rule joins raises TransferNotAllowed.",
+      "id": "transfers-without-code",
+      "outcome": "raises"
+    },
+    {
+      "area": "transfers",
+      "description": "A transfer with a code no rule has raises TransferNotAllowed.",
+      "id": "transfers-wrong-code",
+      "outcome": "raises"
+    },
+    {
+      "area": "transfers",
+      "description": "A transfer against the direction of its rule raises TransferNotAllowed and writes nothing.",
+      "id": "transfers-wrong-direction",
+      "outcome": "raises"
+    },
+    {
+      "area": "transfers",
+      "description": "A transfer of zero, an amount Transfer.transfer checks only for being negative.",
+      "id": "transfers-zero-amount",
+      "outcome": "returns"
+    }
+  ]
+}

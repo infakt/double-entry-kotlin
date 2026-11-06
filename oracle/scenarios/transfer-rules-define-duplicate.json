@@ -1,0 +1,40 @@
+{
+  "area": "transfer-rules",
+  "description": "Defining the same from, to and code twice raises DuplicateTransfer.",
+  "effects": {
+    "steps": [
+      {
+        "code": "xfer",
+        "from": "savings",
+        "to": "cash"
+      }
+    ]
+  },
+  "id": "transfer-rules-define-duplicate",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "code": "xfer",
+        "from": "savings",
+        "op": "define_transfer",
+        "to": "cash"
+      },
+      {
+        "code": "xfer",
+        "from": "savings",
+        "op": "define_transfer",
+        "to": "cash"
+      }
+    ]
+  },
+  "outcome": {
+    "error": {
+      "class": "DoubleEntry::DuplicateTransfer",
+      "message": "DoubleEntry::DuplicateTransfer"
+    }
+  },
+  "source": [
+    "spec/double_entry_spec.rb:29"
+  ]
+}

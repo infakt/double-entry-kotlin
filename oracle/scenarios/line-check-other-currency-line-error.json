@@ -1,0 +1,206 @@
+{
+  "area": "line-check",
+  "description": "A wrong line balance in another currency is an error on the line and on its account, logged in that currency; without a fixer the balance stays wrong.",
+  "effects": {
+    "double_entry_account_balances": [
+      {
+        "account": "bhd_savings",
+        "balance": 10000,
+        "created_at": "2024-01-01T00:00:00Z",
+        "id": 1,
+        "scope": "1",
+        "updated_at": "2024-01-01T00:00:00Z"
+      },
+      {
+        "account": "bhd_test",
+        "balance": -10000,
+        "created_at": "2024-01-01T00:00:00Z",
+        "id": 2,
+        "scope": "1",
+        "updated_at": "2024-01-01T00:00:00Z"
+      }
+    ],
+    "double_entry_line_checks": [
+      {
+        "created_at": "2024-01-01T00:00:00Z",
+        "errors_found": true,
+        "id": 1,
+        "last_line_id": 2,
+        "log": "*********************************\nError on line #1: balance:-9.999 != 0.000 + -10.000\n*********************************\n  <masked>\n\n*********************************\nError on account #{Account account: bhd_test scope:  currency: BHD}: -10.000 (cached balance) != -9.999 (running balance)\n*********************************\n\n",
+        "updated_at": "2024-01-01T00:00:00Z"
+      }
+    ],
+    "double_entry_line_metadata": [],
+    "double_entry_lines": [
+      {
+        "account": "bhd_test",
+        "amount": -10000,
+        "balance": -9999,
+        "code": "bhd_test_transfer",
+        "created_at": "2024-01-01T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 1,
+        "partner_account": "bhd_savings",
+        "partner_id": 2,
+        "partner_scope": "1",
+        "scope": "1",
+        "updated_at": "2024-01-01T00:00:00Z"
+      },
+      {
+        "account": "bhd_savings",
+        "amount": 10000,
+        "balance": 10000,
+        "code": "bhd_test_transfer",
+        "created_at": "2024-01-01T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 2,
+        "partner_account": "bhd_test",
+        "partner_id": 1,
+        "partner_scope": "1",
+        "scope": "1",
+        "updated_at": "2024-01-01T00:00:00Z"
+      }
+    ],
+    "steps": [
+      {
+        "currency": "BHD",
+        "identifier": "bhd_test",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "currency": "BHD",
+        "identifier": "bhd_savings",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "code": "bhd_test_transfer",
+        "from": "bhd_test",
+        "to": "bhd_savings"
+      },
+      [
+        {
+          "account": "bhd_test",
+          "amount": {
+            "cents": -10000,
+            "currency": "BHD"
+          },
+          "balance": {
+            "cents": -10000,
+            "currency": "BHD"
+          },
+          "code": "bhd_test_transfer",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 1,
+          "partner_account": "bhd_savings",
+          "partner_id": 2,
+          "partner_scope": "1",
+          "scope": "1"
+        },
+        {
+          "account": "bhd_savings",
+          "amount": {
+            "cents": 10000,
+            "currency": "BHD"
+          },
+          "balance": {
+            "cents": 10000,
+            "currency": "BHD"
+          },
+          "code": "bhd_test_transfer",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 2,
+          "partner_account": "bhd_test",
+          "partner_id": 1,
+          "partner_scope": "1",
+          "scope": "1"
+        }
+      ],
+      null,
+      {
+        "errors_found": true,
+        "id": 1,
+        "last_line_id": 2,
+        "log": "*********************************\nError on line #1: balance:-9.999 != 0.000 + -10.000\n*********************************\n  <masked>\n\n*********************************\nError on account #{Account account: bhd_test scope:  currency: BHD}: -10.000 (cached balance) != -9.999 (running balance)\n*********************************\n\n"
+      }
+    ]
+  },
+  "id": "line-check-other-currency-line-error",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "schema": {
+      "json_metadata": false,
+      "shape": "generator"
+    },
+    "steps": [
+      {
+        "currency": "BHD",
+        "identifier": "bhd_test",
+        "op": "define_account",
+        "scope": "user_id"
+      },
+      {
+        "currency": "BHD",
+        "identifier": "bhd_savings",
+        "op": "define_account",
+        "scope": "user_id"
+      },
+      {
+        "code": "bhd_test_transfer",
+        "from": "bhd_test",
+        "op": "define_transfer",
+        "to": "bhd_savings"
+      },
+      {
+        "amount": 10000,
+        "code": "bhd_test_transfer",
+        "currency": "BHD",
+        "from": {
+          "identifier": "bhd_test",
+          "scope": {
+            "user": 1
+          }
+        },
+        "op": "transfer",
+        "to": {
+          "identifier": "bhd_savings",
+          "scope": {
+            "user": 1
+          }
+        }
+      },
+      {
+        "delta": 1,
+        "op": "sql_update",
+        "table": "double_entry_lines"
+      },
+      {
+        "fixer": false,
+        "op": "line_check"
+      },
+      {
+        "attr": "balance",
+        "line": 1,
+        "op": "line_attr"
+      }
+    ]
+  },
+  "outcome": {
+    "result": {
+      "cents": -9999,
+      "currency": "BHD"
+    }
+  },
+  "source": [
+    "spec/double_entry/validation/line_check_spec.rb:102",
+    "spec/double_entry/validation/line_check_spec.rb:104",
+    "spec/double_entry/validation/line_check_spec.rb:115"
+  ]
+}

@@ -1,0 +1,50 @@
+{
+  "area": "lines",
+  "description": "Saving a negative balance on a positive-only account raises AccountWouldBeSentNegative.",
+  "effects": {
+    "double_entry_account_balances": [],
+    "double_entry_line_checks": [],
+    "double_entry_line_metadata": [],
+    "double_entry_lines": [],
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "a_positive_only_acc",
+        "negative_only": null,
+        "positive_only": true,
+        "scoped": false
+      }
+    ]
+  },
+  "id": "lines-positive-only-violation",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "schema": {
+      "json_metadata": false,
+      "shape": "generator"
+    },
+    "steps": [
+      {
+        "identifier": "a_positive_only_acc",
+        "op": "define_account",
+        "positive_only": true
+      },
+      {
+        "account": {
+          "identifier": "a_positive_only_acc"
+        },
+        "balance": -1,
+        "op": "line_save"
+      }
+    ]
+  },
+  "outcome": {
+    "error": {
+      "class": "DoubleEntry::AccountWouldBeSentNegative",
+      "message": "#{Account account: a_positive_only_acc scope:  currency: USD}"
+    }
+  },
+  "source": [
+    "spec/double_entry/line_spec.rb:72"
+  ]
+}

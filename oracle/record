@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Records the gem under reference/ into oracle/scenarios/*.json and
+# oracle/index.json. See oracle/README.md. Writes nothing under reference/.
+set -euo pipefail
+
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$root"
+
+# Absolute, so Bundler cannot resolve them against the Gemfile's directory.
+export BUNDLE_GEMFILE="$root/oracle/Gemfile"
+export BUNDLE_PATH="$root/oracle/.bundle"
+
+# Use the Bundler of the Ruby that runs the recorder: another Ruby's
+# `bundle` (a JRuby one, say) may come first on PATH.
+bundle="$(dirname "$(command -v ruby)")/bundle"
+[ -x "$bundle" ] || bundle=bundle
+
+"$bundle" install --quiet
+"$bundle" exec ruby oracle/recorder/record.rb

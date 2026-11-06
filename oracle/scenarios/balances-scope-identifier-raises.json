@@ -1,0 +1,48 @@
+{
+  "area": "balances",
+  "description": "DoubleEntry.balance with a scope its account's scope_identifier rejects raises the scope_identifier's error.",
+  "effects": {
+    "double_entry_account_balances": [],
+    "double_entry_line_checks": [],
+    "double_entry_line_metadata": [],
+    "double_entry_lines": [],
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "savings",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      }
+    ]
+  },
+  "id": "balances-scope-identifier-raises",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "schema": {
+      "json_metadata": false,
+      "shape": "generator"
+    },
+    "steps": [
+      {
+        "identifier": "savings",
+        "op": "define_account",
+        "scope": "user_only"
+      },
+      {
+        "identifier": "savings",
+        "op": "balance",
+        "scope": "7"
+      }
+    ]
+  },
+  "outcome": {
+    "error": {
+      "class": "RuntimeError",
+      "message": "not a User"
+    }
+  },
+  "source": [
+    "spec/double_entry_spec.rb:403"
+  ]
+}

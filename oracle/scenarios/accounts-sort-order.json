@@ -1,0 +1,96 @@
+{
+  "area": "accounts",
+  "description": "Account instances sort by scope identity, then identifier, both as strings; an unscoped account sorts as an empty scope identity.",
+  "effects": {
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "savings",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "currency": "USD",
+        "identifier": "checking",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "currency": "USD",
+        "identifier": "cash",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      }
+    ]
+  },
+  "id": "accounts-sort-order",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "identifier": "savings",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "identifier": "checking",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "identifier": "cash",
+        "op": "define_account"
+      },
+      {
+        "accounts": [
+          {
+            "identifier": "savings",
+            "scope": "456"
+          },
+          {
+            "identifier": "savings",
+            "scope": "123"
+          },
+          {
+            "identifier": "checking",
+            "scope": "456"
+          },
+          {
+            "identifier": "cash"
+          }
+        ],
+        "op": "sort_accounts"
+      }
+    ]
+  },
+  "outcome": {
+    "result": [
+      {
+        "currency": "USD",
+        "identifier": "cash",
+        "scope_identity": null
+      },
+      {
+        "currency": "USD",
+        "identifier": "savings",
+        "scope_identity": "123"
+      },
+      {
+        "currency": "USD",
+        "identifier": "checking",
+        "scope_identity": "456"
+      },
+      {
+        "currency": "USD",
+        "identifier": "savings",
+        "scope_identity": "456"
+      }
+    ]
+  },
+  "source": [
+    "spec/double_entry/account_spec.rb:28"
+  ]
+}

@@ -1,0 +1,151 @@
+{
+  "area": "nested-locking",
+  "description": "With running_inside_transactional_fixtures, a lock inside a regular transaction goes through.",
+  "effects": {
+    "double_entry_account_balances": [
+      {
+        "account": "account_a",
+        "balance": 0,
+        "created_at": "2024-01-01T00:00:00Z",
+        "id": 1,
+        "scope": "1",
+        "updated_at": "2024-01-01T00:00:00Z"
+      },
+      {
+        "account": "account_b",
+        "balance": 0,
+        "created_at": "2024-01-01T00:00:00Z",
+        "id": 2,
+        "scope": "2",
+        "updated_at": "2024-01-01T00:00:00Z"
+      }
+    ],
+    "double_entry_line_checks": [],
+    "double_entry_line_metadata": [],
+    "double_entry_lines": [],
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "account_a",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "currency": "USD",
+        "identifier": "account_b",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "currency": "USD",
+        "identifier": "account_c",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "currency": "USD",
+        "identifier": "account_d",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "currency": "USD",
+        "identifier": "account_e",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "code": "test",
+        "from": "account_a",
+        "to": "account_b"
+      },
+      {
+        "code": "test",
+        "from": "account_c",
+        "to": "account_d"
+      },
+      null
+    ]
+  },
+  "id": "nested-locking-transactional-fixtures",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "schema": {
+      "json_metadata": false,
+      "shape": "generator"
+    },
+    "steps": [
+      {
+        "identifier": "account_a",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "identifier": "account_b",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "identifier": "account_c",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "identifier": "account_d",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "identifier": "account_e",
+        "op": "define_account"
+      },
+      {
+        "code": "test",
+        "from": "account_a",
+        "op": "define_transfer",
+        "to": "account_b"
+      },
+      {
+        "code": "test",
+        "from": "account_c",
+        "op": "define_transfer",
+        "to": "account_d"
+      },
+      {
+        "key": "running_inside_transactional_fixtures",
+        "op": "set_config",
+        "value": true
+      },
+      {
+        "op": "in_transaction",
+        "steps": [
+          {
+            "accounts": [
+              {
+                "identifier": "account_a",
+                "scope": "1"
+              },
+              {
+                "identifier": "account_b",
+                "scope": "2"
+              }
+            ],
+            "op": "lock_accounts",
+            "steps": []
+          }
+        ]
+      }
+    ]
+  },
+  "outcome": {
+    "result": null
+  },
+  "source": [
+    "spec/double_entry/locking_spec.rb:76"
+  ]
+}

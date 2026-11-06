@@ -1,0 +1,84 @@
+{
+  "area": "accounts",
+  "description": "A scoped account is found with a scope, whose id is its scope identity as a string, or with a scope identity given as is.",
+  "effects": {
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "unscoped",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "USD",
+        "identifier": "scoped",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      "scoped",
+      true,
+      {
+        "currency": "USD",
+        "identifier": "scoped",
+        "scope_identity": "7"
+      }
+    ]
+  },
+  "id": "accounts-find-scoped",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "identifier": "unscoped",
+        "op": "define_account"
+      },
+      {
+        "identifier": "scoped",
+        "op": "define_account",
+        "scope": "user_id"
+      },
+      {
+        "attr": "identifier",
+        "identifier": "scoped",
+        "op": "account_attr",
+        "scope": {
+          "user": 1
+        }
+      },
+      {
+        "attr": "scoped?",
+        "identifier": "scoped",
+        "op": "account_attr",
+        "scope": {
+          "user": 1
+        }
+      },
+      {
+        "identifier": "scoped",
+        "op": "account",
+        "scope_identity": "7"
+      },
+      {
+        "identifier": "scoped",
+        "op": "account",
+        "scope": {
+          "user": 1
+        }
+      }
+    ]
+  },
+  "outcome": {
+    "result": {
+      "currency": "USD",
+      "identifier": "scoped",
+      "scope_identity": "1"
+    }
+  },
+  "source": [
+    "spec/double_entry_spec.rb:58",
+    "spec/double_entry_spec.rb:85",
+    "spec/double_entry/account_spec.rb:96"
+  ]
+}

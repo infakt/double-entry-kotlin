@@ -1,0 +1,65 @@
+{
+  "area": "accounts",
+  "description": "An unscoped account is found by its identifier alone; it has no scope identity.",
+  "effects": {
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "unscoped",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "USD",
+        "identifier": "scoped",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      "unscoped",
+      false
+    ]
+  },
+  "id": "accounts-find-unscoped",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "identifier": "unscoped",
+        "op": "define_account"
+      },
+      {
+        "identifier": "scoped",
+        "op": "define_account",
+        "scope": "user_id"
+      },
+      {
+        "attr": "identifier",
+        "identifier": "unscoped",
+        "op": "account_attr"
+      },
+      {
+        "attr": "scoped?",
+        "identifier": "unscoped",
+        "op": "account_attr"
+      },
+      {
+        "identifier": "unscoped",
+        "op": "account"
+      }
+    ]
+  },
+  "outcome": {
+    "result": {
+      "currency": "USD",
+      "identifier": "unscoped",
+      "scope_identity": null
+    }
+  },
+  "source": [
+    "spec/double_entry_spec.rb:54",
+    "spec/double_entry_spec.rb:78",
+    "spec/double_entry/account_spec.rb:89"
+  ]
+}

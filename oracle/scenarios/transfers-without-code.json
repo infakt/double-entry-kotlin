@@ -1,0 +1,108 @@
+{
+  "area": "transfers",
+  "description": "A transfer without a code between accounts no rule joins raises TransferNotAllowed.",
+  "effects": {
+    "double_entry_account_balances": [],
+    "double_entry_line_checks": [],
+    "double_entry_line_metadata": [],
+    "double_entry_lines": [],
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "savings",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "USD",
+        "identifier": "cash",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "USD",
+        "identifier": "trash",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "BHD",
+        "identifier": "bitbucket",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "code": "xfer",
+        "from": "savings",
+        "to": "cash"
+      },
+      {
+        "code": "mismatch_xfer",
+        "from": "trash",
+        "to": "bitbucket"
+      }
+    ]
+  },
+  "id": "transfers-without-code",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "schema": {
+      "json_metadata": false,
+      "shape": "generator"
+    },
+    "steps": [
+      {
+        "identifier": "savings",
+        "op": "define_account"
+      },
+      {
+        "identifier": "cash",
+        "op": "define_account"
+      },
+      {
+        "identifier": "trash",
+        "op": "define_account"
+      },
+      {
+        "currency": "BHD",
+        "identifier": "bitbucket",
+        "op": "define_account"
+      },
+      {
+        "code": "xfer",
+        "from": "savings",
+        "op": "define_transfer",
+        "to": "cash"
+      },
+      {
+        "code": "mismatch_xfer",
+        "from": "trash",
+        "op": "define_transfer",
+        "to": "bitbucket"
+      },
+      {
+        "amount": 10000,
+        "from": {
+          "identifier": "cash"
+        },
+        "op": "transfer",
+        "to": {
+          "identifier": "trash"
+        }
+      }
+    ]
+  },
+  "outcome": {
+    "error": {
+      "class": "DoubleEntry::TransferNotAllowed",
+      "message": "[:cash, :trash, nil]"
+    }
+  },
+  "source": [
+    "spec/double_entry_spec.rb:144"
+  ]
+}

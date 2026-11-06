@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+# Replays oracle/scenarios/*.json of the areas on in oracle/enabled.json
+# against the port (the Gradle task `parity`). See oracle/README.md.
+# Ends with the line `parity: N scenarios, M mismatches` and Gradle's status.
+set -uo pipefail
+
+root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+cd "$root"
+
+# An explicit template, which macOS's mktemp needs to honour TMPDIR.
+out="$(mktemp "${TMPDIR:-/tmp}/parity.XXXXXX")"
+trap 'rm -f "$out"' EXIT
+
+./gradlew --quiet --console=plain parity 2>&1 | tee "$out"
+status=${PIPESTATUS[0]}
+
+last="$(grep '^parity: ' "$out" | tail -n 1 || true)"
+if [ -n "$last" ]; then
+  echo "$last"
+else
+  echo 'parity: 0 scenarios, 1 mismatches'
+fi
+exit "$status"

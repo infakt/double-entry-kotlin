@@ -1,0 +1,50 @@
+{
+  "area": "accounts",
+  "description": "An identifier that was not defined raises UnknownAccount.",
+  "effects": {
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "unscoped",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "USD",
+        "identifier": "scoped",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      }
+    ]
+  },
+  "id": "accounts-unknown-identifier",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "identifier": "unscoped",
+        "op": "define_account"
+      },
+      {
+        "identifier": "scoped",
+        "op": "define_account",
+        "scope": "user_id"
+      },
+      {
+        "identifier": "invalid",
+        "op": "account"
+      }
+    ]
+  },
+  "outcome": {
+    "error": {
+      "class": "DoubleEntry::UnknownAccount",
+      "message": "account: invalid scoped?: false"
+    }
+  },
+  "source": [
+    "spec/double_entry_spec.rb:62"
+  ]
+}

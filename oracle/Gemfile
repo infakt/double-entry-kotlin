@@ -1,0 +1,10 @@
+source 'https://rubygems.org'
+
+# The specification: the gem pinned under reference/, never edited.
+gem 'double_entry', path: '../reference/double_entry'
+
+gem 'activerecord', '~> 8.0'
+gem 'money', '~> 6.19'
+gem 'railties', '~> 8.0'
+gem 'sqlite3', '~> 2.1'
+gem 'timecop', '~> 0.9'

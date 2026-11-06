@@ -1,0 +1,46 @@
+{
+  "area": "configuration",
+  "description": "Unconfigured, the three max lengths are nil, json_metadata is false and running_inside_transactional_fixtures is false.",
+  "effects": {
+    "steps": [
+      null,
+      null,
+      null,
+      false
+    ]
+  },
+  "id": "configuration-defaults",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "key": "code_max_length",
+        "op": "get_config"
+      },
+      {
+        "key": "scope_identifier_max_length",
+        "op": "get_config"
+      },
+      {
+        "key": "account_identifier_max_length",
+        "op": "get_config"
+      },
+      {
+        "key": "json_metadata",
+        "op": "get_config"
+      },
+      {
+        "key": "running_inside_transactional_fixtures",
+        "op": "get_config"
+      }
+    ]
+  },
+  "outcome": {
+    "result": false
+  },
+  "source": [
+    "spec/double_entry/configuration_spec.rb:8",
+    "spec/double_entry/configuration_spec.rb:9",
+    "spec/double_entry/configuration_spec.rb:10"
+  ]
+}

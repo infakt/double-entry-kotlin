@@ -1,0 +1,46 @@
+{
+  "area": "accounts",
+  "description": "With scope_identifier_max_length 23, a scope identity of 24 characters raises ScopeIdentifierTooLongError.",
+  "effects": {
+    "steps": [
+      null,
+      {
+        "currency": "USD",
+        "identifier": "x",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      }
+    ]
+  },
+  "id": "accounts-scope-over-max-length",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "key": "scope_identifier_max_length",
+        "op": "set_config",
+        "value": 23
+      },
+      {
+        "identifier": "x",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "identifier": "x",
+        "op": "account",
+        "scope": "xxxx 24 characters xxxxx"
+      }
+    ]
+  },
+  "outcome": {
+    "error": {
+      "class": "DoubleEntry::ScopeIdentifierTooLongError",
+      "message": "scope identifier 'xxxx 24 characters xxxxx' is too long. Please limit it to 23 characters."
+    }
+  },
+  "source": [
+    "spec/double_entry/account_spec.rb:60"
+  ]
+}

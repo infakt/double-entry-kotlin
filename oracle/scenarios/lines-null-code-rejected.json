@@ -1,0 +1,57 @@
+{
+  "area": "lines",
+  "description": "A line without a code is rejected by the NOT NULL constraint of the code column.",
+  "effects": {
+    "double_entry_account_balances": [],
+    "double_entry_line_checks": [],
+    "double_entry_line_metadata": [],
+    "double_entry_lines": [],
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "test",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      }
+    ]
+  },
+  "id": "lines-null-code-rejected",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "schema": {
+      "json_metadata": false,
+      "shape": "generator"
+    },
+    "steps": [
+      {
+        "identifier": "test",
+        "op": "define_account",
+        "scope": "user_id"
+      },
+      {
+        "account": {
+          "identifier": "test",
+          "scope_identity": "17"
+        },
+        "amount": 1000,
+        "balance": 0,
+        "code": null,
+        "op": "seed_line",
+        "partner_account": {
+          "identifier": "test",
+          "scope_identity": "72"
+        }
+      }
+    ]
+  },
+  "outcome": {
+    "error": {
+      "class": "ActiveRecord::NotNullViolation",
+      "message": "<engine>"
+    }
+  },
+  "source": [
+    "spec/double_entry/line_spec.rb:41"
+  ]
+}

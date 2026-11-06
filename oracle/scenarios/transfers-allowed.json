@@ -1,0 +1,193 @@
+{
+  "area": "transfers",
+  "description": "An allowed transfer writes a credit and a debit line and the two account balances.",
+  "effects": {
+    "double_entry_account_balances": [
+      {
+        "account": "cash",
+        "balance": 10000,
+        "created_at": "2024-01-01T00:00:00Z",
+        "id": 1,
+        "scope": null,
+        "updated_at": "2024-01-01T00:00:00Z"
+      },
+      {
+        "account": "savings",
+        "balance": -10000,
+        "created_at": "2024-01-01T00:00:00Z",
+        "id": 2,
+        "scope": null,
+        "updated_at": "2024-01-01T00:00:00Z"
+      }
+    ],
+    "double_entry_line_checks": [],
+    "double_entry_line_metadata": [],
+    "double_entry_lines": [
+      {
+        "account": "savings",
+        "amount": -10000,
+        "balance": -10000,
+        "code": "xfer",
+        "created_at": "2024-01-01T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 1,
+        "partner_account": "cash",
+        "partner_id": 2,
+        "partner_scope": null,
+        "scope": null,
+        "updated_at": "2024-01-01T00:00:00Z"
+      },
+      {
+        "account": "cash",
+        "amount": 10000,
+        "balance": 10000,
+        "code": "xfer",
+        "created_at": "2024-01-01T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 2,
+        "partner_account": "savings",
+        "partner_id": 1,
+        "partner_scope": null,
+        "scope": null,
+        "updated_at": "2024-01-01T00:00:00Z"
+      }
+    ],
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "savings",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "USD",
+        "identifier": "cash",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "USD",
+        "identifier": "trash",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "BHD",
+        "identifier": "bitbucket",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "code": "xfer",
+        "from": "savings",
+        "to": "cash"
+      },
+      {
+        "code": "mismatch_xfer",
+        "from": "trash",
+        "to": "bitbucket"
+      }
+    ]
+  },
+  "id": "transfers-allowed",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "schema": {
+      "json_metadata": false,
+      "shape": "generator"
+    },
+    "steps": [
+      {
+        "identifier": "savings",
+        "op": "define_account"
+      },
+      {
+        "identifier": "cash",
+        "op": "define_account"
+      },
+      {
+        "identifier": "trash",
+        "op": "define_account"
+      },
+      {
+        "currency": "BHD",
+        "identifier": "bitbucket",
+        "op": "define_account"
+      },
+      {
+        "code": "xfer",
+        "from": "savings",
+        "op": "define_transfer",
+        "to": "cash"
+      },
+      {
+        "code": "mismatch_xfer",
+        "from": "trash",
+        "op": "define_transfer",
+        "to": "bitbucket"
+      },
+      {
+        "amount": 10000,
+        "code": "xfer",
+        "from": {
+          "identifier": "savings"
+        },
+        "op": "transfer",
+        "to": {
+          "identifier": "cash"
+        }
+      }
+    ]
+  },
+  "outcome": {
+    "result": [
+      {
+        "account": "savings",
+        "amount": {
+          "cents": -10000,
+          "currency": "USD"
+        },
+        "balance": {
+          "cents": -10000,
+          "currency": "USD"
+        },
+        "code": "xfer",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 1,
+        "partner_account": "cash",
+        "partner_id": 2,
+        "partner_scope": null,
+        "scope": null
+      },
+      {
+        "account": "cash",
+        "amount": {
+          "cents": 10000,
+          "currency": "USD"
+        },
+        "balance": {
+          "cents": 10000,
+          "currency": "USD"
+        },
+        "code": "xfer",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 2,
+        "partner_account": "savings",
+        "partner_id": 1,
+        "partner_scope": null,
+        "scope": null
+      }
+    ]
+  },
+  "source": [
+    "spec/double_entry_spec.rb:113"
+  ]
+}

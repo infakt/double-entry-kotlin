@@ -1,0 +1,24 @@
+mysql:
+  adapter: mysql2
+  username: mysql
+  password: password
+  database: double_entry_test
+  pool: 100
+  timeout: 5000
+  host: 127.0.0.1
+
+postgres:
+  adapter: postgresql
+  username: postgres
+  password: password
+  database: double_entry_test
+  min_messages: ERROR
+  pool: 100
+  timeout: 5000
+  host: localhost
+
+sqlite:
+  adapter: sqlite3
+  encoding: utf8
+  database: tmp/double_entry_test.sqlite3
+  pool: 100

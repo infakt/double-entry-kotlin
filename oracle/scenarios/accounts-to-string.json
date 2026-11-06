@@ -1,0 +1,54 @@
+{
+  "area": "accounts",
+  "description": "to_s writes the identifier, the scope as given and the currency.",
+  "effects": {
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "cash",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "AUD",
+        "identifier": "savings",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      "#{Account account: cash scope:  currency: USD}"
+    ]
+  },
+  "id": "accounts-to-string",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "identifier": "cash",
+        "op": "define_account"
+      },
+      {
+        "currency": "AUD",
+        "identifier": "savings",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "identifier": "cash",
+        "op": "account_to_s"
+      },
+      {
+        "identifier": "savings",
+        "op": "account_to_s",
+        "scope": "123"
+      }
+    ]
+  },
+  "outcome": {
+    "result": "#{Account account: savings scope: 123 currency: AUD}"
+  },
+  "source": [
+    "spec/double_entry/validation/line_check_spec.rb:82"
+  ]
+}

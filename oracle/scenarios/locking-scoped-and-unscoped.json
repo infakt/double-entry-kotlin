@@ -1,0 +1,139 @@
+{
+  "area": "locking",
+  "description": "A scoped and an unscoped account are locked together; both get a balance record.",
+  "effects": {
+    "double_entry_account_balances": [
+      {
+        "account": "account_e",
+        "balance": 0,
+        "created_at": "2024-01-01T00:00:00Z",
+        "id": 1,
+        "scope": null,
+        "updated_at": "2024-01-01T00:00:00Z"
+      },
+      {
+        "account": "account_d",
+        "balance": 0,
+        "created_at": "2024-01-01T00:00:00Z",
+        "id": 2,
+        "scope": "4",
+        "updated_at": "2024-01-01T00:00:00Z"
+      }
+    ],
+    "double_entry_line_checks": [],
+    "double_entry_line_metadata": [],
+    "double_entry_lines": [],
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "account_a",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "currency": "USD",
+        "identifier": "account_b",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "currency": "USD",
+        "identifier": "account_c",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "currency": "USD",
+        "identifier": "account_d",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "currency": "USD",
+        "identifier": "account_e",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "code": "test",
+        "from": "account_a",
+        "to": "account_b"
+      },
+      {
+        "code": "test",
+        "from": "account_c",
+        "to": "account_d"
+      }
+    ]
+  },
+  "id": "locking-scoped-and-unscoped",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "schema": {
+      "json_metadata": false,
+      "shape": "generator"
+    },
+    "steps": [
+      {
+        "identifier": "account_a",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "identifier": "account_b",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "identifier": "account_c",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "identifier": "account_d",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "identifier": "account_e",
+        "op": "define_account"
+      },
+      {
+        "code": "test",
+        "from": "account_a",
+        "op": "define_transfer",
+        "to": "account_b"
+      },
+      {
+        "code": "test",
+        "from": "account_c",
+        "op": "define_transfer",
+        "to": "account_d"
+      },
+      {
+        "accounts": [
+          {
+            "identifier": "account_d",
+            "scope": "4"
+          },
+          {
+            "identifier": "account_e"
+          }
+        ],
+        "op": "lock_accounts",
+        "steps": []
+      }
+    ]
+  },
+  "outcome": {
+    "result": null
+  },
+  "source": [
+    "spec/double_entry/locking_spec.rb:145"
+  ]
+}

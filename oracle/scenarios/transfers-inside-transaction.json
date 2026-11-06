@@ -1,0 +1,84 @@
+{
+  "area": "transfers",
+  "description": "A transfer inside a regular transaction raises LockMustBeOutermostTransaction and writes nothing.",
+  "effects": {
+    "double_entry_account_balances": [],
+    "double_entry_line_checks": [],
+    "double_entry_line_metadata": [],
+    "double_entry_lines": [],
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "account_a",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "currency": "USD",
+        "identifier": "account_b",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "code": "test",
+        "from": "account_a",
+        "to": "account_b"
+      }
+    ]
+  },
+  "id": "transfers-inside-transaction",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "schema": {
+      "json_metadata": false,
+      "shape": "generator"
+    },
+    "steps": [
+      {
+        "identifier": "account_a",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "identifier": "account_b",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "code": "test",
+        "from": "account_a",
+        "op": "define_transfer",
+        "to": "account_b"
+      },
+      {
+        "op": "in_transaction",
+        "steps": [
+          {
+            "amount": 1000,
+            "code": "test",
+            "from": {
+              "identifier": "account_a",
+              "scope": "1"
+            },
+            "op": "transfer",
+            "to": {
+              "identifier": "account_b",
+              "scope": "2"
+            }
+          }
+        ]
+      }
+    ]
+  },
+  "outcome": {
+    "error": {
+      "class": "DoubleEntry::Locking::LockMustBeOutermostTransaction",
+      "message": "DoubleEntry::Locking::LockMustBeOutermostTransaction"
+    }
+  },
+  "source": [
+    "spec/double_entry/locking_spec.rb:85"
+  ]
+}

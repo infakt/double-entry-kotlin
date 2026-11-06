@@ -1,0 +1,14 @@
+.gradle/
+build/
+.kotlin/
+.idea/
+*.iml
+.DS_Store
+out/
+
+.env
+.env.*
+!.env.example
+
+# the agents read it: keep it tracked despite a global ignore
+!CLAUDE.md

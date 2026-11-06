@@ -1,0 +1,277 @@
+{
+  "area": "schema",
+  "description": "Without json_metadata the migration creates the line_metadata table and the lines have no metadata column.",
+  "effects": {
+    "double_entry_account_balances": [],
+    "double_entry_line_checks": [],
+    "double_entry_line_metadata": [],
+    "double_entry_lines": [],
+    "steps": []
+  },
+  "id": "schema-metadata-table",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "schema": {
+      "json_metadata": false,
+      "shape": "generator"
+    },
+    "steps": [
+      {
+        "op": "describe_schema"
+      }
+    ]
+  },
+  "outcome": {
+    "result": {
+      "double_entry_account_balances": {
+        "columns": [
+          {
+            "name": "id",
+            "null": false,
+            "type": "integer"
+          },
+          {
+            "name": "account",
+            "null": false,
+            "type": "string"
+          },
+          {
+            "name": "scope",
+            "null": true,
+            "type": "string"
+          },
+          {
+            "name": "balance",
+            "null": false,
+            "type": "integer"
+          },
+          {
+            "name": "created_at",
+            "null": false,
+            "type": "datetime"
+          },
+          {
+            "name": "updated_at",
+            "null": false,
+            "type": "datetime"
+          }
+        ],
+        "indexes": [
+          {
+            "columns": [
+              "account"
+            ],
+            "name": "index_account_balances_on_account",
+            "unique": false
+          },
+          {
+            "columns": [
+              "scope",
+              "account"
+            ],
+            "name": "index_account_balances_on_scope_and_account",
+            "unique": true
+          }
+        ]
+      },
+      "double_entry_line_checks": {
+        "columns": [
+          {
+            "name": "id",
+            "null": false,
+            "type": "integer"
+          },
+          {
+            "name": "last_line_id",
+            "null": false,
+            "type": "integer"
+          },
+          {
+            "name": "errors_found",
+            "null": false,
+            "type": "boolean"
+          },
+          {
+            "name": "log",
+            "null": true,
+            "type": "text"
+          },
+          {
+            "name": "created_at",
+            "null": false,
+            "type": "datetime"
+          },
+          {
+            "name": "updated_at",
+            "null": false,
+            "type": "datetime"
+          }
+        ],
+        "indexes": [
+          {
+            "columns": [
+              "created_at",
+              "last_line_id"
+            ],
+            "name": "line_checks_created_at_last_line_id_idx",
+            "unique": false
+          }
+        ]
+      },
+      "double_entry_line_metadata": {
+        "columns": [
+          {
+            "name": "id",
+            "null": false,
+            "type": "integer"
+          },
+          {
+            "name": "line_id",
+            "null": false,
+            "type": "integer"
+          },
+          {
+            "name": "key",
+            "null": false,
+            "type": "string"
+          },
+          {
+            "name": "value",
+            "null": false,
+            "type": "string"
+          },
+          {
+            "name": "created_at",
+            "null": false,
+            "type": "datetime"
+          },
+          {
+            "name": "updated_at",
+            "null": false,
+            "type": "datetime"
+          }
+        ],
+        "indexes": [
+          {
+            "columns": [
+              "line_id",
+              "key",
+              "value"
+            ],
+            "name": "lines_meta_line_id_key_value_idx",
+            "unique": false
+          }
+        ]
+      },
+      "double_entry_lines": {
+        "columns": [
+          {
+            "name": "id",
+            "null": false,
+            "type": "integer"
+          },
+          {
+            "name": "account",
+            "null": false,
+            "type": "string"
+          },
+          {
+            "name": "scope",
+            "null": true,
+            "type": "string"
+          },
+          {
+            "name": "code",
+            "null": false,
+            "type": "string"
+          },
+          {
+            "name": "amount",
+            "null": false,
+            "type": "integer"
+          },
+          {
+            "name": "balance",
+            "null": false,
+            "type": "integer"
+          },
+          {
+            "name": "partner_id",
+            "null": true,
+            "type": "integer"
+          },
+          {
+            "name": "partner_account",
+            "null": false,
+            "type": "string"
+          },
+          {
+            "name": "partner_scope",
+            "null": true,
+            "type": "string"
+          },
+          {
+            "name": "detail_type",
+            "null": true,
+            "type": "string"
+          },
+          {
+            "name": "detail_id",
+            "null": true,
+            "type": "integer"
+          },
+          {
+            "name": "created_at",
+            "null": false,
+            "type": "datetime"
+          },
+          {
+            "name": "updated_at",
+            "null": false,
+            "type": "datetime"
+          }
+        ],
+        "indexes": [
+          {
+            "columns": [
+              "account",
+              "code",
+              "created_at"
+            ],
+            "name": "lines_account_code_created_at_idx",
+            "unique": false
+          },
+          {
+            "columns": [
+              "account",
+              "created_at"
+            ],
+            "name": "lines_account_created_at_idx",
+            "unique": false
+          },
+          {
+            "columns": [
+              "scope",
+              "account",
+              "created_at"
+            ],
+            "name": "lines_scope_account_created_at_idx",
+            "unique": false
+          },
+          {
+            "columns": [
+              "scope",
+              "account",
+              "id"
+            ],
+            "name": "lines_scope_account_id_idx",
+            "unique": false
+          }
+        ]
+      }
+    }
+  },
+  "source": [
+    "spec/generators/double_entry/install/install_generator_spec.rb:94"
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "area": "accounts",
+  "description": "An account defined with currency AUD has AUD.",
+  "effects": {
+    "steps": [
+      {
+        "currency": "AUD",
+        "identifier": "savings",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      }
+    ]
+  },
+  "id": "accounts-explicit-currency",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "currency": "AUD",
+        "identifier": "savings",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "attr": "currency",
+        "identifier": "savings",
+        "op": "account_attr",
+        "scope": "123"
+      }
+    ]
+  },
+  "outcome": {
+    "result": "AUD"
+  },
+  "source": [
+    "spec/double_entry/account_spec.rb:72"
+  ]
+}

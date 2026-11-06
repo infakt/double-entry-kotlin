@@ -1,0 +1,46 @@
+{
+  "area": "locking-extensions",
+  "description": "restartable_transaction runs its block again while it raises RestartTransaction.",
+  "effects": {
+    "events": [],
+    "steps": [
+      null
+    ],
+    "users": [
+      {
+        "created_at": "2024-01-01T00:00:00Z",
+        "id": 1,
+        "updated_at": "2024-01-01T00:00:00Z",
+        "username": "user_a"
+      }
+    ]
+  },
+  "id": "locking-extensions-restartable-transaction",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "error": "ActiveRecord::RestartTransaction",
+        "message": "ActiveRecord::RestartTransaction",
+        "op": "inject_error",
+        "target": "create!",
+        "times": 2
+      },
+      {
+        "op": "restartable_transaction",
+        "steps": [
+          {
+            "op": "create_ignoring_duplicates",
+            "username": "user_a"
+          }
+        ]
+      }
+    ]
+  },
+  "outcome": {
+    "result": null
+  },
+  "source": [
+    "spec/active_record/locking_extensions_spec.rb:9"
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "area": "accounts",
+  "description": "With scope_identifier_max_length 23, a scope identity of 23 characters is accepted.",
+  "effects": {
+    "steps": [
+      null,
+      {
+        "currency": "USD",
+        "identifier": "x",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      }
+    ]
+  },
+  "id": "accounts-scope-at-max-length",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "key": "scope_identifier_max_length",
+        "op": "set_config",
+        "value": 23
+      },
+      {
+        "identifier": "x",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "identifier": "x",
+        "op": "account",
+        "scope": "xxxx 23 characters xxxx"
+      }
+    ]
+  },
+  "outcome": {
+    "result": {
+      "currency": "USD",
+      "identifier": "x",
+      "scope_identity": "xxxx 23 characters xxxx"
+    }
+  },
+  "source": [
+    "spec/double_entry/account_spec.rb:55"
+  ]
+}

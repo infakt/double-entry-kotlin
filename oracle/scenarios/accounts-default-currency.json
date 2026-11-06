@@ -1,0 +1,38 @@
+{
+  "area": "accounts",
+  "description": "An account defined without a currency has Money.default_currency, USD.",
+  "effects": {
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "savings",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      }
+    ]
+  },
+  "id": "accounts-default-currency",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "identifier": "savings",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "attr": "currency",
+        "identifier": "savings",
+        "op": "account_attr",
+        "scope": "123"
+      }
+    ]
+  },
+  "outcome": {
+    "result": "USD"
+  },
+  "source": [
+    "spec/double_entry/account_spec.rb:67"
+  ]
+}

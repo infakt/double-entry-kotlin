@@ -1,0 +1,36 @@
+{
+  "area": "accounts",
+  "description": "With account_identifier_max_length 31, an identifier of 31 characters is accepted.",
+  "effects": {
+    "steps": [
+      null
+    ]
+  },
+  "id": "accounts-identifier-at-max-length",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "key": "account_identifier_max_length",
+        "op": "set_config",
+        "value": 31
+      },
+      {
+        "identifier": "xxxxxxxx 31 characters xxxxxxxx",
+        "op": "define_account"
+      }
+    ]
+  },
+  "outcome": {
+    "result": {
+      "currency": "USD",
+      "identifier": "xxxxxxxx 31 characters xxxxxxxx",
+      "negative_only": null,
+      "positive_only": null,
+      "scoped": false
+    }
+  },
+  "source": [
+    "spec/double_entry/account_spec.rb:13"
+  ]
+}

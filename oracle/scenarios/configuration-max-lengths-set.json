@@ -1,0 +1,54 @@
+{
+  "area": "configuration",
+  "description": "A max length that has been set is read back as set: code 10, scope identifier 11, account identifier 9.",
+  "effects": {
+    "steps": [
+      null,
+      10,
+      null,
+      11,
+      null
+    ]
+  },
+  "id": "configuration-max-lengths-set",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "key": "code_max_length",
+        "op": "set_config",
+        "value": 10
+      },
+      {
+        "key": "code_max_length",
+        "op": "get_config"
+      },
+      {
+        "key": "scope_identifier_max_length",
+        "op": "set_config",
+        "value": 11
+      },
+      {
+        "key": "scope_identifier_max_length",
+        "op": "get_config"
+      },
+      {
+        "key": "account_identifier_max_length",
+        "op": "set_config",
+        "value": 9
+      },
+      {
+        "key": "account_identifier_max_length",
+        "op": "get_config"
+      }
+    ]
+  },
+  "outcome": {
+    "result": 9
+  },
+  "source": [
+    "spec/double_entry/configuration_spec.rb:15",
+    "spec/double_entry/configuration_spec.rb:20",
+    "spec/double_entry/configuration_spec.rb:25"
+  ]
+}

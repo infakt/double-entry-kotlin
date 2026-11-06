@@ -1,0 +1,919 @@
+{
+  "area": "balances",
+  "description": "With from but no to, or to but no from, there is no range: the balance is the running balance of the account's last line, nothing summed.",
+  "effects": {
+    "double_entry_account_balances": [
+      {
+        "account": "cash",
+        "balance": 10000,
+        "created_at": "2023-12-12T00:00:00Z",
+        "id": 1,
+        "scope": null,
+        "updated_at": "2023-12-26T00:00:00Z"
+      },
+      {
+        "account": "work",
+        "balance": -100000,
+        "created_at": "2023-12-12T00:00:00Z",
+        "id": 2,
+        "scope": null,
+        "updated_at": "2023-12-12T00:00:00Z"
+      },
+      {
+        "account": "savings",
+        "balance": 30000,
+        "created_at": "2023-12-12T00:00:00Z",
+        "id": 3,
+        "scope": null,
+        "updated_at": "2023-12-26T00:00:00Z"
+      },
+      {
+        "account": "store",
+        "balance": 60000,
+        "created_at": "2023-12-19T00:00:00Z",
+        "id": 4,
+        "scope": null,
+        "updated_at": "2023-12-26T00:00:00Z"
+      },
+      {
+        "account": "btc_store",
+        "balance": -20000,
+        "created_at": "2024-01-08T00:00:00Z",
+        "id": 5,
+        "scope": null,
+        "updated_at": "2024-01-08T00:00:00Z"
+      },
+      {
+        "account": "btc_wallet",
+        "balance": 20000,
+        "created_at": "2024-01-08T00:00:00Z",
+        "id": 6,
+        "scope": null,
+        "updated_at": "2024-01-08T00:00:00Z"
+      }
+    ],
+    "double_entry_line_checks": [],
+    "double_entry_line_metadata": [],
+    "double_entry_lines": [
+      {
+        "account": "work",
+        "amount": -100000,
+        "balance": -100000,
+        "code": "salary",
+        "created_at": "2023-12-12T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 1,
+        "partner_account": "cash",
+        "partner_id": 2,
+        "partner_scope": null,
+        "scope": null,
+        "updated_at": "2023-12-12T00:00:00Z"
+      },
+      {
+        "account": "cash",
+        "amount": 100000,
+        "balance": 100000,
+        "code": "salary",
+        "created_at": "2023-12-12T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 2,
+        "partner_account": "work",
+        "partner_id": 1,
+        "partner_scope": null,
+        "scope": null,
+        "updated_at": "2023-12-12T00:00:00Z"
+      },
+      {
+        "account": "cash",
+        "amount": -50000,
+        "balance": 50000,
+        "code": "xfer",
+        "created_at": "2023-12-12T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 3,
+        "partner_account": "savings",
+        "partner_id": 4,
+        "partner_scope": null,
+        "scope": null,
+        "updated_at": "2023-12-12T00:00:00Z"
+      },
+      {
+        "account": "savings",
+        "amount": 50000,
+        "balance": 50000,
+        "code": "xfer",
+        "created_at": "2023-12-12T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 4,
+        "partner_account": "cash",
+        "partner_id": 3,
+        "partner_scope": null,
+        "scope": null,
+        "updated_at": "2023-12-12T00:00:00Z"
+      },
+      {
+        "account": "cash",
+        "amount": -20000,
+        "balance": 30000,
+        "code": "purchase",
+        "created_at": "2023-12-19T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 5,
+        "partner_account": "store",
+        "partner_id": 6,
+        "partner_scope": null,
+        "scope": null,
+        "updated_at": "2023-12-19T00:00:00Z"
+      },
+      {
+        "account": "store",
+        "amount": 20000,
+        "balance": 20000,
+        "code": "purchase",
+        "created_at": "2023-12-19T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 6,
+        "partner_account": "cash",
+        "partner_id": 5,
+        "partner_scope": null,
+        "scope": null,
+        "updated_at": "2023-12-19T00:00:00Z"
+      },
+      {
+        "account": "cash",
+        "amount": -10000,
+        "balance": 20000,
+        "code": "layby",
+        "created_at": "2023-12-19T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 7,
+        "partner_account": "store",
+        "partner_id": 8,
+        "partner_scope": null,
+        "scope": null,
+        "updated_at": "2023-12-19T00:00:00Z"
+      },
+      {
+        "account": "store",
+        "amount": 10000,
+        "balance": 30000,
+        "code": "layby",
+        "created_at": "2023-12-19T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 8,
+        "partner_account": "cash",
+        "partner_id": 7,
+        "partner_scope": null,
+        "scope": null,
+        "updated_at": "2023-12-19T00:00:00Z"
+      },
+      {
+        "account": "cash",
+        "amount": -10000,
+        "balance": 10000,
+        "code": "deposit",
+        "created_at": "2023-12-19T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 9,
+        "partner_account": "store",
+        "partner_id": 10,
+        "partner_scope": null,
+        "scope": null,
+        "updated_at": "2023-12-19T00:00:00Z"
+      },
+      {
+        "account": "store",
+        "amount": 10000,
+        "balance": 40000,
+        "code": "deposit",
+        "created_at": "2023-12-19T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 10,
+        "partner_account": "cash",
+        "partner_id": 9,
+        "partner_scope": null,
+        "scope": null,
+        "updated_at": "2023-12-19T00:00:00Z"
+      },
+      {
+        "account": "savings",
+        "amount": -20000,
+        "balance": 30000,
+        "code": "xfer",
+        "created_at": "2023-12-26T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 11,
+        "partner_account": "cash",
+        "partner_id": 12,
+        "partner_scope": null,
+        "scope": null,
+        "updated_at": "2023-12-26T00:00:00Z"
+      },
+      {
+        "account": "cash",
+        "amount": 20000,
+        "balance": 30000,
+        "code": "xfer",
+        "created_at": "2023-12-26T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 12,
+        "partner_account": "savings",
+        "partner_id": 11,
+        "partner_scope": null,
+        "scope": null,
+        "updated_at": "2023-12-26T00:00:00Z"
+      },
+      {
+        "account": "cash",
+        "amount": -20000,
+        "balance": 10000,
+        "code": "purchase",
+        "created_at": "2023-12-26T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 13,
+        "partner_account": "store",
+        "partner_id": 14,
+        "partner_scope": null,
+        "scope": null,
+        "updated_at": "2023-12-26T00:00:00Z"
+      },
+      {
+        "account": "store",
+        "amount": 20000,
+        "balance": 60000,
+        "code": "purchase",
+        "created_at": "2023-12-26T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 14,
+        "partner_account": "cash",
+        "partner_id": 13,
+        "partner_scope": null,
+        "scope": null,
+        "updated_at": "2023-12-26T00:00:00Z"
+      },
+      {
+        "account": "btc_store",
+        "amount": -20000,
+        "balance": -20000,
+        "code": "btc_ex",
+        "created_at": "2024-01-08T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 15,
+        "partner_account": "btc_wallet",
+        "partner_id": 16,
+        "partner_scope": null,
+        "scope": null,
+        "updated_at": "2024-01-08T00:00:00Z"
+      },
+      {
+        "account": "btc_wallet",
+        "amount": 20000,
+        "balance": 20000,
+        "code": "btc_ex",
+        "created_at": "2024-01-08T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 16,
+        "partner_account": "btc_store",
+        "partner_id": 15,
+        "partner_scope": null,
+        "scope": null,
+        "updated_at": "2024-01-08T00:00:00Z"
+      }
+    ],
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "work",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "USD",
+        "identifier": "cash",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "USD",
+        "identifier": "savings",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "USD",
+        "identifier": "store",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "BHD",
+        "identifier": "btc_store",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "BHD",
+        "identifier": "btc_wallet",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "code": "salary",
+        "from": "work",
+        "to": "cash"
+      },
+      {
+        "code": "xfer",
+        "from": "cash",
+        "to": "savings"
+      },
+      {
+        "code": "xfer",
+        "from": "savings",
+        "to": "cash"
+      },
+      {
+        "code": "purchase",
+        "from": "cash",
+        "to": "store"
+      },
+      {
+        "code": "layby",
+        "from": "cash",
+        "to": "store"
+      },
+      {
+        "code": "deposit",
+        "from": "cash",
+        "to": "store"
+      },
+      {
+        "code": "btc_ex",
+        "from": "btc_store",
+        "to": "btc_wallet"
+      },
+      null,
+      [
+        {
+          "account": "work",
+          "amount": {
+            "cents": -100000,
+            "currency": "USD"
+          },
+          "balance": {
+            "cents": -100000,
+            "currency": "USD"
+          },
+          "code": "salary",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 1,
+          "partner_account": "cash",
+          "partner_id": 2,
+          "partner_scope": null,
+          "scope": null
+        },
+        {
+          "account": "cash",
+          "amount": {
+            "cents": 100000,
+            "currency": "USD"
+          },
+          "balance": {
+            "cents": 100000,
+            "currency": "USD"
+          },
+          "code": "salary",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 2,
+          "partner_account": "work",
+          "partner_id": 1,
+          "partner_scope": null,
+          "scope": null
+        }
+      ],
+      [
+        {
+          "account": "cash",
+          "amount": {
+            "cents": -50000,
+            "currency": "USD"
+          },
+          "balance": {
+            "cents": 50000,
+            "currency": "USD"
+          },
+          "code": "xfer",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 3,
+          "partner_account": "savings",
+          "partner_id": 4,
+          "partner_scope": null,
+          "scope": null
+        },
+        {
+          "account": "savings",
+          "amount": {
+            "cents": 50000,
+            "currency": "USD"
+          },
+          "balance": {
+            "cents": 50000,
+            "currency": "USD"
+          },
+          "code": "xfer",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 4,
+          "partner_account": "cash",
+          "partner_id": 3,
+          "partner_scope": null,
+          "scope": null
+        }
+      ],
+      null,
+      [
+        {
+          "account": "cash",
+          "amount": {
+            "cents": -20000,
+            "currency": "USD"
+          },
+          "balance": {
+            "cents": 30000,
+            "currency": "USD"
+          },
+          "code": "purchase",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 5,
+          "partner_account": "store",
+          "partner_id": 6,
+          "partner_scope": null,
+          "scope": null
+        },
+        {
+          "account": "store",
+          "amount": {
+            "cents": 20000,
+            "currency": "USD"
+          },
+          "balance": {
+            "cents": 20000,
+            "currency": "USD"
+          },
+          "code": "purchase",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 6,
+          "partner_account": "cash",
+          "partner_id": 5,
+          "partner_scope": null,
+          "scope": null
+        }
+      ],
+      [
+        {
+          "account": "cash",
+          "amount": {
+            "cents": -10000,
+            "currency": "USD"
+          },
+          "balance": {
+            "cents": 20000,
+            "currency": "USD"
+          },
+          "code": "layby",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 7,
+          "partner_account": "store",
+          "partner_id": 8,
+          "partner_scope": null,
+          "scope": null
+        },
+        {
+          "account": "store",
+          "amount": {
+            "cents": 10000,
+            "currency": "USD"
+          },
+          "balance": {
+            "cents": 30000,
+            "currency": "USD"
+          },
+          "code": "layby",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 8,
+          "partner_account": "cash",
+          "partner_id": 7,
+          "partner_scope": null,
+          "scope": null
+        }
+      ],
+      [
+        {
+          "account": "cash",
+          "amount": {
+            "cents": -10000,
+            "currency": "USD"
+          },
+          "balance": {
+            "cents": 10000,
+            "currency": "USD"
+          },
+          "code": "deposit",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 9,
+          "partner_account": "store",
+          "partner_id": 10,
+          "partner_scope": null,
+          "scope": null
+        },
+        {
+          "account": "store",
+          "amount": {
+            "cents": 10000,
+            "currency": "USD"
+          },
+          "balance": {
+            "cents": 40000,
+            "currency": "USD"
+          },
+          "code": "deposit",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 10,
+          "partner_account": "cash",
+          "partner_id": 9,
+          "partner_scope": null,
+          "scope": null
+        }
+      ],
+      null,
+      [
+        {
+          "account": "savings",
+          "amount": {
+            "cents": -20000,
+            "currency": "USD"
+          },
+          "balance": {
+            "cents": 30000,
+            "currency": "USD"
+          },
+          "code": "xfer",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 11,
+          "partner_account": "cash",
+          "partner_id": 12,
+          "partner_scope": null,
+          "scope": null
+        },
+        {
+          "account": "cash",
+          "amount": {
+            "cents": 20000,
+            "currency": "USD"
+          },
+          "balance": {
+            "cents": 30000,
+            "currency": "USD"
+          },
+          "code": "xfer",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 12,
+          "partner_account": "savings",
+          "partner_id": 11,
+          "partner_scope": null,
+          "scope": null
+        }
+      ],
+      [
+        {
+          "account": "cash",
+          "amount": {
+            "cents": -20000,
+            "currency": "USD"
+          },
+          "balance": {
+            "cents": 10000,
+            "currency": "USD"
+          },
+          "code": "purchase",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 13,
+          "partner_account": "store",
+          "partner_id": 14,
+          "partner_scope": null,
+          "scope": null
+        },
+        {
+          "account": "store",
+          "amount": {
+            "cents": 20000,
+            "currency": "USD"
+          },
+          "balance": {
+            "cents": 60000,
+            "currency": "USD"
+          },
+          "code": "purchase",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 14,
+          "partner_account": "cash",
+          "partner_id": 13,
+          "partner_scope": null,
+          "scope": null
+        }
+      ],
+      null,
+      [
+        {
+          "account": "btc_store",
+          "amount": {
+            "cents": -20000,
+            "currency": "BHD"
+          },
+          "balance": {
+            "cents": -20000,
+            "currency": "BHD"
+          },
+          "code": "btc_ex",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 15,
+          "partner_account": "btc_wallet",
+          "partner_id": 16,
+          "partner_scope": null,
+          "scope": null
+        },
+        {
+          "account": "btc_wallet",
+          "amount": {
+            "cents": 20000,
+            "currency": "BHD"
+          },
+          "balance": {
+            "cents": 20000,
+            "currency": "BHD"
+          },
+          "code": "btc_ex",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 16,
+          "partner_account": "btc_store",
+          "partner_id": 15,
+          "partner_scope": null,
+          "scope": null
+        }
+      ],
+      null,
+      {
+        "cents": 10000,
+        "currency": "USD"
+      }
+    ]
+  },
+  "id": "balances-from-or-to-alone",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "schema": {
+      "json_metadata": false,
+      "shape": "generator"
+    },
+    "steps": [
+      {
+        "identifier": "work",
+        "op": "define_account"
+      },
+      {
+        "identifier": "cash",
+        "op": "define_account"
+      },
+      {
+        "identifier": "savings",
+        "op": "define_account"
+      },
+      {
+        "identifier": "store",
+        "op": "define_account"
+      },
+      {
+        "currency": "BHD",
+        "identifier": "btc_store",
+        "op": "define_account"
+      },
+      {
+        "currency": "BHD",
+        "identifier": "btc_wallet",
+        "op": "define_account"
+      },
+      {
+        "code": "salary",
+        "from": "work",
+        "op": "define_transfer",
+        "to": "cash"
+      },
+      {
+        "code": "xfer",
+        "from": "cash",
+        "op": "define_transfer",
+        "to": "savings"
+      },
+      {
+        "code": "xfer",
+        "from": "savings",
+        "op": "define_transfer",
+        "to": "cash"
+      },
+      {
+        "code": "purchase",
+        "from": "cash",
+        "op": "define_transfer",
+        "to": "store"
+      },
+      {
+        "code": "layby",
+        "from": "cash",
+        "op": "define_transfer",
+        "to": "store"
+      },
+      {
+        "code": "deposit",
+        "from": "cash",
+        "op": "define_transfer",
+        "to": "store"
+      },
+      {
+        "code": "btc_ex",
+        "from": "btc_store",
+        "op": "define_transfer",
+        "to": "btc_wallet"
+      },
+      {
+        "op": "travel",
+        "to": "2023-12-12T00:00:00Z"
+      },
+      {
+        "amount": 100000,
+        "code": "salary",
+        "from": {
+          "identifier": "work"
+        },
+        "op": "transfer",
+        "to": {
+          "identifier": "cash"
+        }
+      },
+      {
+        "amount": 50000,
+        "code": "xfer",
+        "from": {
+          "identifier": "cash"
+        },
+        "op": "transfer",
+        "to": {
+          "identifier": "savings"
+        }
+      },
+      {
+        "op": "travel",
+        "to": "2023-12-19T00:00:00Z"
+      },
+      {
+        "amount": 20000,
+        "code": "purchase",
+        "from": {
+          "identifier": "cash"
+        },
+        "op": "transfer",
+        "to": {
+          "identifier": "store"
+        }
+      },
+      {
+        "amount": 10000,
+        "code": "layby",
+        "from": {
+          "identifier": "cash"
+        },
+        "op": "transfer",
+        "to": {
+          "identifier": "store"
+        }
+      },
+      {
+        "amount": 10000,
+        "code": "deposit",
+        "from": {
+          "identifier": "cash"
+        },
+        "op": "transfer",
+        "to": {
+          "identifier": "store"
+        }
+      },
+      {
+        "op": "travel",
+        "to": "2023-12-26T00:00:00Z"
+      },
+      {
+        "amount": 20000,
+        "code": "xfer",
+        "from": {
+          "identifier": "savings"
+        },
+        "op": "transfer",
+        "to": {
+          "identifier": "cash"
+        }
+      },
+      {
+        "amount": 20000,
+        "code": "purchase",
+        "from": {
+          "identifier": "cash"
+        },
+        "op": "transfer",
+        "to": {
+          "identifier": "store"
+        }
+      },
+      {
+        "op": "travel",
+        "to": "2024-01-08T00:00:00Z"
+      },
+      {
+        "amount": 20000,
+        "code": "btc_ex",
+        "currency": "BHD",
+        "from": {
+          "identifier": "btc_store"
+        },
+        "op": "transfer",
+        "to": {
+          "identifier": "btc_wallet"
+        }
+      },
+      {
+        "op": "travel",
+        "to": "2024-01-01T00:00:00Z"
+      },
+      {
+        "account": {
+          "identifier": "cash"
+        },
+        "from": "2023-12-25T00:00:00Z",
+        "op": "balance"
+      },
+      {
+        "account": {
+          "identifier": "cash"
+        },
+        "op": "balance",
+        "to": "2023-12-18T00:00:00Z"
+      }
+    ]
+  },
+  "outcome": {
+    "result": {
+      "cents": 10000,
+      "currency": "USD"
+    }
+  },
+  "source": [
+    "spec/double_entry_spec.rb:323",
+    "spec/double_entry/balance_calculator_spec.rb:54"
+  ]
+}

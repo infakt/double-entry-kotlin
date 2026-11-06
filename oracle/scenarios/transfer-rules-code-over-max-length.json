@@ -1,0 +1,35 @@
+{
+  "area": "transfer-rules",
+  "description": "With code_max_length 47, a code of 48 characters raises TransferCodeTooLongError.",
+  "effects": {
+    "steps": [
+      null
+    ]
+  },
+  "id": "transfer-rules-code-over-max-length",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "key": "code_max_length",
+        "op": "set_config",
+        "value": 47
+      },
+      {
+        "code": "xxxxxxxxxxxxxxxx 48 characters xxxxxxxxxxxxxxxxx",
+        "from": "from",
+        "op": "define_transfer",
+        "to": "to"
+      }
+    ]
+  },
+  "outcome": {
+    "error": {
+      "class": "DoubleEntry::TransferCodeTooLongError",
+      "message": "transfer code 'xxxxxxxxxxxxxxxx 48 characters xxxxxxxxxxxxxxxxx' is too long. Please limit it to 47 characters."
+    }
+  },
+  "source": [
+    "spec/double_entry/transfer_spec.rb:18"
+  ]
+}

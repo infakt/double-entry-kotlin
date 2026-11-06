@@ -1,0 +1,36 @@
+{
+  "area": "transfer-rules",
+  "description": "With code_max_length 47, a code of 47 characters is accepted.",
+  "effects": {
+    "steps": [
+      null
+    ]
+  },
+  "id": "transfer-rules-code-at-max-length",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "key": "code_max_length",
+        "op": "set_config",
+        "value": 47
+      },
+      {
+        "code": "xxxxxxxxxxxxxxxx 47 characters xxxxxxxxxxxxxxxx",
+        "from": "from",
+        "op": "define_transfer",
+        "to": "to"
+      }
+    ]
+  },
+  "outcome": {
+    "result": {
+      "code": "xxxxxxxxxxxxxxxx 47 characters xxxxxxxxxxxxxxxx",
+      "from": "from",
+      "to": "to"
+    }
+  },
+  "source": [
+    "spec/double_entry/transfer_spec.rb:11"
+  ]
+}

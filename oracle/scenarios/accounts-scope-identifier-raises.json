@@ -1,0 +1,49 @@
+{
+  "area": "accounts",
+  "description": "A scope_identifier that raises makes DoubleEntry.account raise the same error.",
+  "effects": {
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "savings",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      "7"
+    ]
+  },
+  "id": "accounts-scope-identifier-raises",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "identifier": "savings",
+        "op": "define_account",
+        "scope": "user_only"
+      },
+      {
+        "attr": "scope_identity",
+        "identifier": "savings",
+        "op": "account_attr",
+        "scope": {
+          "user": 7
+        }
+      },
+      {
+        "identifier": "savings",
+        "op": "account",
+        "scope": "7"
+      }
+    ]
+  },
+  "outcome": {
+    "error": {
+      "class": "RuntimeError",
+      "message": "not a User"
+    }
+  },
+  "source": [
+    "spec/double_entry_spec.rb:403"
+  ]
+}

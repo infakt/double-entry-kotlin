@@ -1,0 +1,38 @@
+{
+  "area": "accounts",
+  "description": "Defining the same identifier twice raises DuplicateAccount.",
+  "effects": {
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "gah!",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      }
+    ]
+  },
+  "id": "accounts-define-duplicate",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "identifier": "gah!",
+        "op": "define_account"
+      },
+      {
+        "identifier": "gah!",
+        "op": "define_account"
+      }
+    ]
+  },
+  "outcome": {
+    "error": {
+      "class": "DoubleEntry::DuplicateAccount",
+      "message": "DoubleEntry::DuplicateAccount"
+    }
+  },
+  "source": [
+    "spec/double_entry_spec.rb:18"
+  ]
+}

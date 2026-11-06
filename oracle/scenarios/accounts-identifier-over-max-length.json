@@ -1,0 +1,33 @@
+{
+  "area": "accounts",
+  "description": "With account_identifier_max_length 31, an identifier of 32 characters raises AccountIdentifierTooLongError.",
+  "effects": {
+    "steps": [
+      null
+    ]
+  },
+  "id": "accounts-identifier-over-max-length",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "key": "account_identifier_max_length",
+        "op": "set_config",
+        "value": 31
+      },
+      {
+        "identifier": "xxxxxxxx 32 characters xxxxxxxxx",
+        "op": "define_account"
+      }
+    ]
+  },
+  "outcome": {
+    "error": {
+      "class": "DoubleEntry::AccountIdentifierTooLongError",
+      "message": "account identifier 'xxxxxxxx 32 characters xxxxxxxxx' is too long. Please limit it to 31 characters."
+    }
+  },
+  "source": [
+    "spec/double_entry/account_spec.rb:20"
+  ]
+}

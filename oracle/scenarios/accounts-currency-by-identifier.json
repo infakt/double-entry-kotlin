@@ -1,0 +1,59 @@
+{
+  "area": "accounts",
+  "description": "Account.currency gives the currency of the account defined with an identifier, scoped or not: USD, the default, for one defined without a currency, BHD for one defined with it; an identifier no account has gives nil.",
+  "effects": {
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "cash",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "BHD",
+        "identifier": "bhd_savings",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      "USD",
+      "BHD"
+    ]
+  },
+  "id": "accounts-currency-by-identifier",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "identifier": "cash",
+        "op": "define_account"
+      },
+      {
+        "currency": "BHD",
+        "identifier": "bhd_savings",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "identifier": "cash",
+        "op": "account_currency"
+      },
+      {
+        "identifier": "bhd_savings",
+        "op": "account_currency"
+      },
+      {
+        "identifier": "invalid",
+        "op": "account_currency"
+      }
+    ]
+  },
+  "outcome": {
+    "result": null
+  },
+  "source": [
+    "spec/double_entry/account_spec.rb:67",
+    "spec/double_entry/account_spec.rb:72"
+  ]
+}

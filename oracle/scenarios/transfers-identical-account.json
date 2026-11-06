@@ -1,0 +1,116 @@
+{
+  "area": "transfers",
+  "description": "A transfer from an account to itself, with the same scope, raises TransferNotAllowed even when a rule allows it.",
+  "effects": {
+    "double_entry_account_balances": [],
+    "double_entry_line_checks": [],
+    "double_entry_line_metadata": [],
+    "double_entry_lines": [],
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "bank",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "USD",
+        "identifier": "cash",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "currency": "USD",
+        "identifier": "savings",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "code": "xfer",
+        "from": "bank",
+        "to": "cash"
+      },
+      {
+        "code": "xfer",
+        "from": "cash",
+        "to": "cash"
+      },
+      {
+        "code": "xfer",
+        "from": "cash",
+        "to": "savings"
+      }
+    ]
+  },
+  "id": "transfers-identical-account",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "schema": {
+      "json_metadata": false,
+      "shape": "generator"
+    },
+    "steps": [
+      {
+        "identifier": "bank",
+        "op": "define_account"
+      },
+      {
+        "identifier": "cash",
+        "op": "define_account",
+        "scope": "user_only"
+      },
+      {
+        "identifier": "savings",
+        "op": "define_account",
+        "scope": "user_only"
+      },
+      {
+        "code": "xfer",
+        "from": "bank",
+        "op": "define_transfer",
+        "to": "cash"
+      },
+      {
+        "code": "xfer",
+        "from": "cash",
+        "op": "define_transfer",
+        "to": "cash"
+      },
+      {
+        "code": "xfer",
+        "from": "cash",
+        "op": "define_transfer",
+        "to": "savings"
+      },
+      {
+        "amount": 1000,
+        "code": "xfer",
+        "from": {
+          "identifier": "cash",
+          "scope": {
+            "user": 2
+          }
+        },
+        "op": "transfer",
+        "to": {
+          "identifier": "cash",
+          "scope": {
+            "user": 2
+          }
+        }
+      }
+    ]
+  },
+  "outcome": {
+    "error": {
+      "class": "DoubleEntry::TransferNotAllowed",
+      "message": "from account and to account are identical"
+    }
+  },
+  "source": [
+    "spec/double_entry_spec.rb:415"
+  ]
+}

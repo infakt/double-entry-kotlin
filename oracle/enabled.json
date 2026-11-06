@@ -1,0 +1,19 @@
+{
+  "areas": {
+    "configuration": "on",
+    "transfer-rules": "on",
+    "accounts": "on",
+    "schema": "on",
+    "locking": "on",
+    "transfers": "on",
+    "lines": "on",
+    "balances": "on",
+    "account-balances": "on",
+    "nested-locking": "on",
+    "locking-extensions": "on",
+    "metadata-table": "on",
+    "metadata-json": "on",
+    "line-check": "on",
+    "account-fixer": "on"
+  }
+}

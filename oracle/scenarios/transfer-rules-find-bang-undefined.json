@@ -1,0 +1,51 @@
+{
+  "area": "transfer-rules",
+  "description": "find! raises TransferNotAllowed for a rule that was not defined (the reverse direction).",
+  "effects": {
+    "steps": [
+      {
+        "code": "transfer_code",
+        "from": "from",
+        "to": "to"
+      },
+      {
+        "code": "another_transfer_code",
+        "from": "from",
+        "to": "to"
+      }
+    ]
+  },
+  "id": "transfer-rules-find-bang-undefined",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "code": "transfer_code",
+        "from": "from",
+        "op": "define_transfer",
+        "to": "to"
+      },
+      {
+        "code": "another_transfer_code",
+        "from": "from",
+        "op": "define_transfer",
+        "to": "to"
+      },
+      {
+        "code": "transfer_code",
+        "from": "to",
+        "op": "find_transfer!",
+        "to": "from"
+      }
+    ]
+  },
+  "outcome": {
+    "error": {
+      "class": "DoubleEntry::TransferNotAllowed",
+      "message": "[:to, :from, :transfer_code]"
+    }
+  },
+  "source": [
+    "spec/double_entry/transfer_spec.rb:261"
+  ]
+}

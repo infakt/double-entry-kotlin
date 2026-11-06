@@ -1,0 +1,79 @@
+{
+  "area": "accounts",
+  "description": "Two instances of an account with the same scope are equal and hash alike; with different scopes they are neither.",
+  "effects": {
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "savings",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      true,
+      false,
+      true
+    ]
+  },
+  "id": "accounts-equality-and-hash",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "identifier": "savings",
+        "op": "define_account",
+        "scope": "identity"
+      },
+      {
+        "left": {
+          "identifier": "savings",
+          "scope": "123"
+        },
+        "op": "accounts_equal",
+        "right": {
+          "identifier": "savings",
+          "scope": "123"
+        }
+      },
+      {
+        "left": {
+          "identifier": "savings",
+          "scope": "123"
+        },
+        "op": "accounts_equal",
+        "right": {
+          "identifier": "savings",
+          "scope": "456"
+        }
+      },
+      {
+        "left": {
+          "identifier": "savings",
+          "scope": "123"
+        },
+        "op": "hash_equal",
+        "right": {
+          "identifier": "savings",
+          "scope": "123"
+        }
+      },
+      {
+        "left": {
+          "identifier": "savings",
+          "scope": "123"
+        },
+        "op": "hash_equal",
+        "right": {
+          "identifier": "savings",
+          "scope": "456"
+        }
+      }
+    ]
+  },
+  "outcome": {
+    "result": false
+  },
+  "source": [
+    "spec/double_entry/account_spec.rb:35"
+  ]
+}

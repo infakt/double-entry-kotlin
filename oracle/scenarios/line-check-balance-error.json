@@ -1,0 +1,217 @@
+{
+  "area": "line-check",
+  "description": "A balance record that differs from the running balance is an error on the account; without a fixer the record stays wrong.",
+  "effects": {
+    "double_entry_account_balances": [
+      {
+        "account": "savings",
+        "balance": 10001,
+        "created_at": "2024-01-01T00:00:00Z",
+        "id": 1,
+        "scope": "1",
+        "updated_at": "2024-01-01T00:00:00Z"
+      },
+      {
+        "account": "test",
+        "balance": -10000,
+        "created_at": "2024-01-01T00:00:00Z",
+        "id": 2,
+        "scope": "1",
+        "updated_at": "2024-01-01T00:00:00Z"
+      }
+    ],
+    "double_entry_line_checks": [
+      {
+        "created_at": "2024-01-01T00:00:00Z",
+        "errors_found": true,
+        "id": 1,
+        "last_line_id": 2,
+        "log": "*********************************\nError on account #{Account account: savings scope:  currency: USD}: 100.01 (cached balance) != 100.00 (running balance)\n*********************************\n\n",
+        "updated_at": "2024-01-01T00:00:00Z"
+      }
+    ],
+    "double_entry_line_metadata": [],
+    "double_entry_lines": [
+      {
+        "account": "test",
+        "amount": -10000,
+        "balance": -10000,
+        "code": "bonus",
+        "created_at": "2024-01-01T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 1,
+        "partner_account": "savings",
+        "partner_id": 2,
+        "partner_scope": "1",
+        "scope": "1",
+        "updated_at": "2024-01-01T00:00:00Z"
+      },
+      {
+        "account": "savings",
+        "amount": 10000,
+        "balance": 10000,
+        "code": "bonus",
+        "created_at": "2024-01-01T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 2,
+        "partner_account": "test",
+        "partner_id": 1,
+        "partner_scope": "1",
+        "scope": "1",
+        "updated_at": "2024-01-01T00:00:00Z"
+      }
+    ],
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "savings",
+        "negative_only": null,
+        "positive_only": true,
+        "scoped": true
+      },
+      {
+        "currency": "USD",
+        "identifier": "test",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "code": "bonus",
+        "from": "test",
+        "to": "savings"
+      },
+      [
+        {
+          "account": "test",
+          "amount": {
+            "cents": -10000,
+            "currency": "USD"
+          },
+          "balance": {
+            "cents": -10000,
+            "currency": "USD"
+          },
+          "code": "bonus",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 1,
+          "partner_account": "savings",
+          "partner_id": 2,
+          "partner_scope": "1",
+          "scope": "1"
+        },
+        {
+          "account": "savings",
+          "amount": {
+            "cents": 10000,
+            "currency": "USD"
+          },
+          "balance": {
+            "cents": 10000,
+            "currency": "USD"
+          },
+          "code": "bonus",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 2,
+          "partner_account": "test",
+          "partner_id": 1,
+          "partner_scope": "1",
+          "scope": "1"
+        }
+      ],
+      null,
+      {
+        "errors_found": true,
+        "id": 1,
+        "last_line_id": 2,
+        "log": "*********************************\nError on account #{Account account: savings scope:  currency: USD}: 100.01 (cached balance) != 100.00 (running balance)\n*********************************\n\n"
+      },
+      {
+        "cents": 10001,
+        "currency": "USD"
+      }
+    ]
+  },
+  "id": "line-check-balance-error",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "schema": {
+      "json_metadata": false,
+      "shape": "generator"
+    },
+    "steps": [
+      {
+        "identifier": "savings",
+        "op": "define_account",
+        "positive_only": true,
+        "scope": "user_id"
+      },
+      {
+        "identifier": "test",
+        "op": "define_account",
+        "scope": "user_id"
+      },
+      {
+        "code": "bonus",
+        "from": "test",
+        "op": "define_transfer",
+        "to": "savings"
+      },
+      {
+        "amount": 10000,
+        "code": "bonus",
+        "from": {
+          "identifier": "test",
+          "scope": {
+            "user": 1
+          }
+        },
+        "op": "transfer",
+        "to": {
+          "identifier": "savings",
+          "scope": {
+            "user": 1
+          }
+        }
+      },
+      {
+        "delta": 1,
+        "op": "sql_update",
+        "table": "double_entry_account_balances"
+      },
+      {
+        "fixer": false,
+        "op": "line_check"
+      },
+      {
+        "identifier": "savings",
+        "op": "account_balance_record",
+        "scope": {
+          "user": 1
+        }
+      },
+      {
+        "identifier": "test",
+        "op": "account_balance_record",
+        "scope": {
+          "user": 1
+        }
+      }
+    ]
+  },
+  "outcome": {
+    "result": {
+      "cents": -10000,
+      "currency": "USD"
+    }
+  },
+  "source": [
+    "spec/double_entry/validation/line_check_spec.rb:76",
+    "spec/double_entry/validation/line_check_spec.rb:78",
+    "spec/double_entry/validation/line_check_spec.rb:89"
+  ]
+}

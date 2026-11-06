@@ -1,0 +1,112 @@
+{
+  "area": "line-check",
+  "description": "last_line_id_checked is the last_line_id of the newest check by created_at, not the last one created.",
+  "effects": {
+    "double_entry_account_balances": [],
+    "double_entry_line_checks": [
+      {
+        "created_at": "2023-12-31T23:57:00Z",
+        "errors_found": false,
+        "id": 1,
+        "last_line_id": 100,
+        "log": "",
+        "updated_at": "2023-12-31T23:57:00Z"
+      },
+      {
+        "created_at": "2023-12-31T23:59:00Z",
+        "errors_found": false,
+        "id": 2,
+        "last_line_id": 300,
+        "log": "",
+        "updated_at": "2023-12-31T23:59:00Z"
+      },
+      {
+        "created_at": "2023-12-31T23:58:00Z",
+        "errors_found": false,
+        "id": 3,
+        "last_line_id": 200,
+        "log": "",
+        "updated_at": "2023-12-31T23:58:00Z"
+      }
+    ],
+    "double_entry_line_metadata": [],
+    "double_entry_lines": [],
+    "steps": [
+      null,
+      {
+        "errors_found": false,
+        "id": 1,
+        "last_line_id": 100,
+        "log": ""
+      },
+      null,
+      {
+        "errors_found": false,
+        "id": 2,
+        "last_line_id": 300,
+        "log": ""
+      },
+      null,
+      {
+        "errors_found": false,
+        "id": 3,
+        "last_line_id": 200,
+        "log": ""
+      },
+      null
+    ]
+  },
+  "id": "line-check-last-line-id",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "schema": {
+      "json_metadata": false,
+      "shape": "generator"
+    },
+    "steps": [
+      {
+        "op": "travel",
+        "to": "2023-12-31T23:57:00Z"
+      },
+      {
+        "errors_found": false,
+        "last_line_id": 100,
+        "log": "",
+        "op": "create_line_check"
+      },
+      {
+        "op": "travel",
+        "to": "2023-12-31T23:59:00Z"
+      },
+      {
+        "errors_found": false,
+        "last_line_id": 300,
+        "log": "",
+        "op": "create_line_check"
+      },
+      {
+        "op": "travel",
+        "to": "2023-12-31T23:58:00Z"
+      },
+      {
+        "errors_found": false,
+        "last_line_id": 200,
+        "log": "",
+        "op": "create_line_check"
+      },
+      {
+        "op": "travel",
+        "to": "2024-01-01T00:00:00Z"
+      },
+      {
+        "op": "last_line_id_checked"
+      }
+    ]
+  },
+  "outcome": {
+    "result": 300
+  },
+  "source": [
+    "spec/double_entry/validation/line_check_spec.rb:21"
+  ]
+}

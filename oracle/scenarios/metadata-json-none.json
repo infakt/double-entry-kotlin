@@ -1,0 +1,190 @@
+{
+  "area": "metadata-json",
+  "description": "With json_metadata, a transfer without metadata creates no line_metadata rows and leaves the lines' metadata column empty.",
+  "effects": {
+    "double_entry_account_balances": [
+      {
+        "account": "savings",
+        "balance": 1000,
+        "created_at": "2024-01-01T00:00:00Z",
+        "id": 1,
+        "scope": "1",
+        "updated_at": "2024-01-01T00:00:00Z"
+      },
+      {
+        "account": "test",
+        "balance": -1000,
+        "created_at": "2024-01-01T00:00:00Z",
+        "id": 2,
+        "scope": "1",
+        "updated_at": "2024-01-01T00:00:00Z"
+      }
+    ],
+    "double_entry_line_checks": [],
+    "double_entry_line_metadata": [],
+    "double_entry_lines": [
+      {
+        "account": "test",
+        "amount": -1000,
+        "balance": -1000,
+        "code": "bonus",
+        "created_at": "2024-01-01T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 1,
+        "metadata": null,
+        "partner_account": "savings",
+        "partner_id": 2,
+        "partner_scope": "1",
+        "scope": "1",
+        "updated_at": "2024-01-01T00:00:00Z"
+      },
+      {
+        "account": "savings",
+        "amount": 1000,
+        "balance": 1000,
+        "code": "bonus",
+        "created_at": "2024-01-01T00:00:00Z",
+        "detail_id": null,
+        "detail_type": null,
+        "id": 2,
+        "metadata": null,
+        "partner_account": "test",
+        "partner_id": 1,
+        "partner_scope": "1",
+        "scope": "1",
+        "updated_at": "2024-01-01T00:00:00Z"
+      }
+    ],
+    "steps": [
+      null,
+      {
+        "currency": "USD",
+        "identifier": "savings",
+        "negative_only": null,
+        "positive_only": true,
+        "scoped": true
+      },
+      {
+        "currency": "USD",
+        "identifier": "test",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "code": "bonus",
+        "from": "test",
+        "to": "savings"
+      },
+      [
+        {
+          "account": "test",
+          "amount": {
+            "cents": -1000,
+            "currency": "USD"
+          },
+          "balance": {
+            "cents": -1000,
+            "currency": "USD"
+          },
+          "code": "bonus",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 1,
+          "partner_account": "savings",
+          "partner_id": 2,
+          "partner_scope": "1",
+          "scope": "1"
+        },
+        {
+          "account": "savings",
+          "amount": {
+            "cents": 1000,
+            "currency": "USD"
+          },
+          "balance": {
+            "cents": 1000,
+            "currency": "USD"
+          },
+          "code": "bonus",
+          "detail_id": null,
+          "detail_type": null,
+          "id": 2,
+          "partner_account": "test",
+          "partner_id": 1,
+          "partner_scope": "1",
+          "scope": "1"
+        }
+      ],
+      0,
+      null
+    ]
+  },
+  "id": "metadata-json-none",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "schema": {
+      "shape": "spec"
+    },
+    "steps": [
+      {
+        "key": "json_metadata",
+        "op": "set_config",
+        "value": true
+      },
+      {
+        "identifier": "savings",
+        "op": "define_account",
+        "positive_only": true,
+        "scope": "user_id"
+      },
+      {
+        "identifier": "test",
+        "op": "define_account",
+        "scope": "user_id"
+      },
+      {
+        "code": "bonus",
+        "from": "test",
+        "op": "define_transfer",
+        "to": "savings"
+      },
+      {
+        "amount": 1000,
+        "code": "bonus",
+        "from": {
+          "identifier": "test",
+          "scope": {
+            "user": 1
+          }
+        },
+        "op": "transfer",
+        "to": {
+          "identifier": "savings",
+          "scope": {
+            "user": 1
+          }
+        }
+      },
+      {
+        "op": "line_metadata_count"
+      },
+      {
+        "line": 1,
+        "op": "line_metadata_of"
+      },
+      {
+        "line": 2,
+        "op": "line_metadata_of"
+      }
+    ]
+  },
+  "outcome": {
+    "result": null
+  },
+  "source": [
+    "spec/double_entry/transfer_spec.rb:57",
+    "spec/double_entry/transfer_spec.rb:61"
+  ]
+}

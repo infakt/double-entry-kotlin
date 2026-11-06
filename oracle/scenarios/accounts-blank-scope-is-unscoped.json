@@ -1,0 +1,72 @@
+{
+  "area": "accounts",
+  "description": "A blank scope or scope identity counts as none: it finds the unscoped account, and a scoped account asked for with a blank scope raises UnknownAccount.",
+  "effects": {
+    "steps": [
+      {
+        "currency": "USD",
+        "identifier": "unscoped",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": false
+      },
+      {
+        "currency": "USD",
+        "identifier": "scoped",
+        "negative_only": null,
+        "positive_only": null,
+        "scoped": true
+      },
+      {
+        "currency": "USD",
+        "identifier": "unscoped",
+        "scope_identity": null
+      },
+      {
+        "currency": "USD",
+        "identifier": "unscoped",
+        "scope_identity": ""
+      }
+    ]
+  },
+  "id": "accounts-blank-scope-is-unscoped",
+  "input": {
+    "clock": "2024-01-01T00:00:00Z",
+    "steps": [
+      {
+        "identifier": "unscoped",
+        "op": "define_account"
+      },
+      {
+        "identifier": "scoped",
+        "op": "define_account",
+        "scope": "user_id"
+      },
+      {
+        "identifier": "unscoped",
+        "op": "account",
+        "scope": ""
+      },
+      {
+        "identifier": "unscoped",
+        "op": "account",
+        "scope_identity": ""
+      },
+      {
+        "identifier": "scoped",
+        "op": "account",
+        "scope": ""
+      }
+    ]
+  },
+  "outcome": {
+    "error": {
+      "class": "DoubleEntry::UnknownAccount",
+      "message": "account: scoped scoped?: false"
+    }
+  },
+  "source": [
+    "spec/double_entry_spec.rb:54",
+    "spec/double_entry_spec.rb:70"
+  ]
+}
